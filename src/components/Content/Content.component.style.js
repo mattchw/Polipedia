@@ -25,8 +25,14 @@ export default makeStyles(theme => ({
     },
     content: {
       paddingLeft: 10,
+    },
+    contentText: {
       whiteSpace: 'nowrap',
       overflow: 'hidden !important',
       textOverflow: 'ellipsis',
+    },
+    contentChip: {
+      paddingTop: 10,
+      paddingBottom: 10,
     },
 }));

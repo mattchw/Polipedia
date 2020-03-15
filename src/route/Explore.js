@@ -8,6 +8,8 @@ import Content from '../components/Content/Content.container'
 import SearchBar from '../components/SearchBar/SearchBar'
 import Grid from '@material-ui/core/Grid';
 
+import dummyPerson from '../utils/dummy/person'
+
 const useStyles = makeStyles(theme => ({
   root: {
     padding: '2px 4px',
@@ -29,7 +31,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Explore() {
-  const [data, setData] = useState([{name: "abc", description: "adsfdfadwfwfwvwvwvevwevvwrvrwwwevwfdafad"},{name: "abc", description: "adsfdfadfdafad"},{name: "abc", description: "adsfdfadfdafad"},{name: "abc", description: "adsfdfadfdafad"},{name: "abc", description: "adsfdfadfdafad"}]);
+  const [data, setData] = useState(dummyPerson);
   const classes = useStyles();
 
   // useEffect(() => {

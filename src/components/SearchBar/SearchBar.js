@@ -15,28 +15,39 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import style from './SearchBar.style'
 
+import utilStance from '../../utils/stance'
+import utilOccupation from '../../utils/occupation'
+
 const useStyles = style;
 
-const options = [
-  { value: 1, label: 'Chocolate' },
-  { value: 2, label: 'Strawberry' },
-  { value: 3, label: 'Vanilla' },
-  { value: 4, label: '1dedewdewdewdew' },
-  { value: 5, label: '2dedewdewdwdwdewdwdewde' },
-  { value: 6, label: '3dewdewdewdwedew' },
-];
+let options = [];
 
-const stances = [
-  { value: 'yellow', label: 'Yellow' },
-  { value: 'blue', label: 'Blue' },
-  { value: 'unknown', label: 'Unknown' },
-];
+let stances = [];
+
+
+function getOptions(){
+  for(let i = 0; i<utilStance.length; i++){
+    let obj = {
+      value: utilStance[i].id, 
+      label: utilStance[i].name
+    }
+    stances.push(obj);
+  }
+  for(let j = 0; j<utilOccupation.length; j++){
+    let obj = {
+      value: utilOccupation[j].id, 
+      label: utilOccupation[j].name
+    }
+    options.push(obj);
+  }
+}
 
 function SearchBar() {
   const classes = useStyles();
   const [selectedOptions, setSelectedOptions] = useState(null);
   const [selectedStances, setSelectedStances] = useState(null);
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState('none');
+  const [showOptionsOpacity, setShowOptionsOpacity] = useState(0);
 
   const handleChangeOptions = selected => {
     setSelectedOptions(selected);
@@ -46,9 +57,24 @@ function SearchBar() {
     setSelectedStances(selected);
   };
 
-  const triggerOptions = () => {
-    setShowOptions(!showOptions);
+  const toggleOptions = () => {
+    if (showOptions === 'none') {
+      setShowOptions('flex');
+      setTimeout(() =>
+        setShowOptionsOpacity(1), 100 // something very short
+      )
+    }
+    if (showOptions === 'flex') {
+      setShowOptionsOpacity(0);
+      setTimeout(() =>
+        setShowOptions('none'), 300 // same as transition time
+      )
+    }
   }
+
+  useEffect(() => {
+    getOptions();
+  }, []);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.searchBarContainer}>
@@ -66,18 +92,24 @@ function SearchBar() {
         </Paper>
       </Grid>
       {
-        showOptions && <Grid container item xs={10} direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionContainer}>
-            <Grid item xs={12} sm={4} className={classes.searchBarOption}>
+        <Grid container item xs={10} direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionContainer} 
+          style={{
+            transition: 'opacity 0.3s ease',
+            opacity: showOptionsOpacity,
+            display: showOptions,
+          }}
+        >
+            <Grid item xs={12} md={4} className={classes.searchBarOption}>
             <Select
                 isMulti
                 closeMenuOnSelect={false}
                 value={selectedStances}
                 onChange={handleChangeStances}
                 options={stances}
-                placeholder="Stance"
+                placeholder="立場"
               />
           </Grid>
-          <Grid item xs={12} sm={8} className={classes.searchBarOption}>
+          <Grid item xs={12} md={8} className={classes.searchBarOption}>
             <Select
               isMulti
               closeMenuOnSelect={false}
@@ -91,9 +123,9 @@ function SearchBar() {
       }
       
       <Grid container direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionButton}>
-          <Button variant="contained" size="small" color="secondary" onClick={triggerOptions}>
+          <Button variant="contained" size="small" color="secondary" onClick={toggleOptions}>
             {
-              showOptions ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>
+              (showOptions==='flex') ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>
             }
           </Button>
       </Grid>
