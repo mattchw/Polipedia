@@ -90,48 +90,54 @@ function NavBar(props) {
         variant="persistent"
         anchor="left"
         open={open}
+        onClose={handleDrawerClose}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+        <div role="presentation"
+          onClick={handleDrawerClose}
+          onKeyDown={handleDrawerClose}>
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <Link to="/" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><HomeIcon/></ListItemIcon>
+                <ListItemText primary='Home' />
+              </ListItem>
+            </Link>
+
+            <Link to="/explore" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><ExploreIcon/></ListItemIcon>
+                <ListItemText primary='Explore' />
+              </ListItem>
+            </Link>
+
+            <Link to="/encourage" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><UmbrellaIcon/></ListItemIcon>
+                <ListItemText primary='Keep Going' />
+              </ListItem>
+            </Link>
+            
+          </List>
+          <Divider />
+          <List>
+            <Link to="/about" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><InfoIcon/></ListItemIcon>
+                <ListItemText primary='About Us' />
+              </ListItem>
+            </Link>
+          </List>
+
         </div>
-        <Divider />
-        <List>
-          <Link to="/" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><HomeIcon/></ListItemIcon>
-              <ListItemText primary='Home' />
-            </ListItem>
-          </Link>
-
-          <Link to="/explore" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><ExploreIcon/></ListItemIcon>
-              <ListItemText primary='Explore' />
-            </ListItem>
-          </Link>
-
-          <Link to="/encourage" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><UmbrellaIcon/></ListItemIcon>
-              <ListItemText primary='Keep Going' />
-            </ListItem>
-          </Link>
-          
-        </List>
-        <Divider />
-        <List>
-          <Link to="/about" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><InfoIcon/></ListItemIcon>
-              <ListItemText primary='About Us' />
-            </ListItem>
-          </Link>
-        </List>
           
       </Drawer>
       <main
