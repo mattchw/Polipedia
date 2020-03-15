@@ -26,6 +26,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Search';
 import UmbrellaIcon from '@material-ui/icons/BeachAccess';
 import InfoIcon from '@material-ui/icons/Info';
+import InvertColorsIcon from '@material-ui/icons/InvertColors';
 
 // style
 import styles from './NavBar.style'
@@ -78,9 +79,7 @@ function NavBar(props) {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
-              Yellow Blue
-            </Typography>
+            <InvertColorsIcon/>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
@@ -108,21 +107,21 @@ function NavBar(props) {
             <Link to="/" className={classes.link}>
               <ListItem button>
                 <ListItemIcon><HomeIcon/></ListItemIcon>
-                <ListItemText primary='Home' />
+                <ListItemText primary='主頁' />
               </ListItem>
             </Link>
 
             <Link to="/explore" className={classes.link}>
               <ListItem button>
                 <ListItemIcon><ExploreIcon/></ListItemIcon>
-                <ListItemText primary='Explore' />
+                <ListItemText primary='圖鑑' />
               </ListItem>
             </Link>
 
             <Link to="/encourage" className={classes.link}>
               <ListItem button>
                 <ListItemIcon><UmbrellaIcon/></ListItemIcon>
-                <ListItemText primary='Keep Going' />
+                <ListItemText primary='勿忘初衷' />
               </ListItem>
             </Link>
             
@@ -132,7 +131,7 @@ function NavBar(props) {
             <Link to="/about" className={classes.link}>
               <ListItem button>
                 <ListItemIcon><InfoIcon/></ListItemIcon>
-                <ListItemText primary='About Us' />
+                <ListItemText primary='關於我們' />
               </ListItem>
             </Link>
           </List>

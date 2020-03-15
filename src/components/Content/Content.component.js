@@ -20,7 +20,7 @@ function ContentItem(props) {
     useEffect(() => {
       if(props.item.stance){
         for(let i = 0; i<utilStance.length; i++){
-          if(props.item.stance==utilStance[i].id){
+          if(props.item.stance===utilStance[i].id){
             setStance(utilStance[i].value);
           }
         }
@@ -29,14 +29,14 @@ function ContentItem(props) {
         let tmp = [];
         for(let i = 0; i<utilOccupation.length; i++){
           for(let j = 0; j<props.item.occupation.length; j++){
-            if(props.item.occupation[j]==utilOccupation[i].id){
+            if(props.item.occupation[j]===utilOccupation[i].id){
               tmp.push(utilOccupation[i].name);
             }
           }
         }
         setOccupation(tmp);
       }
-    }, []);
+    }, [props]);
 
     return (
       <Grid container direction="row" justify="center" alignItems="center" className={classes.cardContainer}>

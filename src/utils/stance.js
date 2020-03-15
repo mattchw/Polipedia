@@ -1,13 +1,13 @@
 export default [{
     id: 1,
-    name: 'Yellow',
+    name: '黃',
     value: '#ffdf00',
 },{
     id: 2,
-    name: 'Blue',
+    name: '藍',
     value: '#0057c3',
 },{
     id: 3,
-    name: 'Unknown',
+    name: '不明確',
     value: '#929292',
 }];

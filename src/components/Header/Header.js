@@ -19,20 +19,18 @@ function Header() {
       <Grid container direction="column" justify="center" alignItems="center" className={classes.containerItem}>
         <Grid item>
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            Yellow Blue
+            流水鑑
           </Typography>
         </Grid>
         <Grid item xs={8}>
           <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              Something short and leading about the collection below—its contents, the creator, etc.
-              Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-              entirely.
+              黃藍是政見，黑白是良知。
           </Typography>
         </Grid>
         <Grid container spacing={2} justify="center">
           <Grid item >
             <Button variant="contained" color="primary">
-              Get Started
+              開始
             </Button>
           </Grid>
         </Grid>

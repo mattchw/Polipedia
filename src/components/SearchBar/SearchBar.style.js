@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { grey } from '@material-ui/core/colors';
 
 export default makeStyles(theme => ({
     root: {
@@ -19,7 +18,7 @@ export default makeStyles(theme => ({
       margin: 4,
     },
     searchBarContainer: {
-      paddingTop: '10px',
+      paddingTop: 20,
     },
     searchBarOptionContainer: {
       borderRadius: '0 0 10px 10px',
