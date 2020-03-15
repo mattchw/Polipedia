@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export default makeStyles(theme => ({
     root: {
@@ -42,7 +42,6 @@ export default makeStyles(theme => ({
     },
     content: {
       flexGrow: 1,
-      // padding: theme.spacing(3),
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,

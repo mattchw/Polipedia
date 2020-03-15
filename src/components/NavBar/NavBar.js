@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -47,6 +48,7 @@ function NavBar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const shift = useMediaQuery('(min-width:600px)');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -134,7 +136,7 @@ function NavBar(props) {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: shift&&open,
         })}
       >
         <div className={classes.drawerHeader} />
