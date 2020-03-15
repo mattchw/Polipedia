@@ -1,0 +1,13 @@
+.header {
+    /* The image used */
+    /* background-image: url(../../assets/images/header-background.jpg); */
+
+    /* Full height */
+    height: 94vh; 
+    width: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
