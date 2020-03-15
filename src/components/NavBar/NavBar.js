@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -47,6 +48,7 @@ function NavBar(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const shift = useMediaQuery('(min-width:600px)');
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -88,53 +90,59 @@ function NavBar(props) {
         variant="persistent"
         anchor="left"
         open={open}
+        onClose={handleDrawerClose}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+        <div role="presentation"
+          onClick={handleDrawerClose}
+          onKeyDown={handleDrawerClose}>
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <Link to="/" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><HomeIcon/></ListItemIcon>
+                <ListItemText primary='Home' />
+              </ListItem>
+            </Link>
+
+            <Link to="/explore" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><ExploreIcon/></ListItemIcon>
+                <ListItemText primary='Explore' />
+              </ListItem>
+            </Link>
+
+            <Link to="/encourage" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><UmbrellaIcon/></ListItemIcon>
+                <ListItemText primary='Keep Going' />
+              </ListItem>
+            </Link>
+            
+          </List>
+          <Divider />
+          <List>
+            <Link to="/about" className={classes.link}>
+              <ListItem button>
+                <ListItemIcon><InfoIcon/></ListItemIcon>
+                <ListItemText primary='About Us' />
+              </ListItem>
+            </Link>
+          </List>
+
         </div>
-        <Divider />
-        <List>
-          <Link to="/" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><HomeIcon/></ListItemIcon>
-              <ListItemText primary='Home' />
-            </ListItem>
-          </Link>
-
-          <Link to="/explore" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><ExploreIcon/></ListItemIcon>
-              <ListItemText primary='Explore' />
-            </ListItem>
-          </Link>
-
-          <Link to="/encourage" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><UmbrellaIcon/></ListItemIcon>
-              <ListItemText primary='Keep Going' />
-            </ListItem>
-          </Link>
-          
-        </List>
-        <Divider />
-        <List>
-          <Link to="/about" className={classes.link}>
-            <ListItem button>
-              <ListItemIcon><InfoIcon/></ListItemIcon>
-              <ListItemText primary='About Us' />
-            </ListItem>
-          </Link>
-        </List>
           
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: open,
+          [classes.contentShift]: shift&&open,
         })}
       >
         <div className={classes.drawerHeader} />
