@@ -5,7 +5,7 @@ export default [{
 },{
     id: 2,
     name: '藍',
-    value: '#0057c3',
+    value: '#3b82da',
 },{
     id: 3,
     name: '不明確',

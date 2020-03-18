@@ -29,7 +29,7 @@ function ContentItem(props) {
         let tmp = [];
         for(let i = 0; i<utilOccupation.length; i++){
           for(let j = 0; j<props.item.occupation.length; j++){
-            if(props.item.occupation[j]===utilOccupation[i].id){
+            if(props.item.occupation[j].value===utilOccupation[i].id){
               tmp.push(utilOccupation[i].name);
             }
           }

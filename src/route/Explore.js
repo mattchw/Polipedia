@@ -31,18 +31,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Explore() {
-  const [data, setData] = useState(dummyPerson);
+  const [data, setData] = useState([]);
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       '/api/v1/person',
-  //     );
-  //     setData(result.data);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        '/api/v1/persons',
+      );
+      setData(result.data.content);
+      // console.log(result);
+    };
+    fetchData();
+  }, []);
 
   return (
     <Container maxWidth='xl'>
