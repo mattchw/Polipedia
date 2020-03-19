@@ -7,6 +7,7 @@ import Container from '@material-ui/core/Container';
 import Content from '../components/Content/Content.container'
 import SearchBar from '../components/SearchBar/SearchBar'
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import dummyPerson from '../utils/dummy/person'
 
@@ -31,24 +32,42 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Explore() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    content: [],
+    total: 0,
+    isFetching: false
+  });
   const classes = useStyles();
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios(
-        '/api/v1/persons',
-      );
-      setData(result.data.content);
-      // console.log(result);
+      try {
+        setData({content: data.content, total: 0, isFetching: true});
+        const result = await axios(
+          '/api/v1/persons',
+        );
+        setData({content: result.data.content, total: result.data.totalElements, isFetching: false});
+        // console.log(result);
+      } catch (e) {
+        console.log(e);
+        setData({content: data.content, total: 0, isFetching: false});
+      }
     };
     fetchData();
   }, []);
 
   return (
-    <Container maxWidth='xl'>
+    <Container
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
         <SearchBar/>
-        <Content data={data}/>
+        {
+          data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content data={data}/>
+        }
     </Container> 
   );
 }

@@ -6,12 +6,12 @@ export default makeStyles(theme => ({
       display: 'flex',
       alignItems: 'center',
     },
-    cardContainer:{
-      padding: 10,
-    },
     card:{
+      margin: '10px 0',
       borderRadius: 10,
       boxShadow: '1px 1px 3px grey',
+      borderLeft: 'solid',
+      borderLeftWidth: 10,
       minHeight: 120,
     },
     stance:{
@@ -27,6 +27,7 @@ export default makeStyles(theme => ({
       paddingLeft: 10,
     },
     contentText: {
+      paddingTop: 5,
       whiteSpace: 'nowrap',
       overflow: 'hidden !important',
       textOverflow: 'ellipsis',

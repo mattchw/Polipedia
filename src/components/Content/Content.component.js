@@ -16,6 +16,7 @@ function ContentItem(props) {
     const classes = useStyles();
     const [stance, setStance] = useState('');
     const [occupation, setOccupation] = useState([]);
+    const [img, setImg] = useState('https://homepages.cae.wisc.edu/~ece533/images/arctichare.png');
 
     useEffect(() => {
       if(props.item.stance){
@@ -36,25 +37,30 @@ function ContentItem(props) {
         }
         setOccupation(tmp);
       }
+      if(props.item.profile){
+        setImg(props.item.profile);
+      }
     }, [props]);
 
     return (
-      <Grid container direction="row" justify="center" alignItems="center" className={classes.cardContainer}>
-        <Grid item container direction="row" xs={11} className={classes.card}>
-          <div className={classes.stance} style={{backgroundColor: stance}}/>
-          <Hidden only='xs'>
-            <Grid item sm={3}>
-              <img alt={props.item.name} src="https://homepages.cae.wisc.edu/~ece533/images/arctichare.png" className={classes.image}/>
-            </Grid>
-          </Hidden>
-          <Grid item xs={11} sm={8} className={classes.content}>
-            <Typography gutterBottom variant="h5" component="h2" className={classes.contentText}>
+      <Grid container direction="row" justify="center" alignItems="center" className={classes.card} style={{borderLeftColor: stance}}>
+        <Hidden only='xs'>
+          <Grid item sm={3}>
+            <img alt={props.item.name} src={img} className={classes.image}/>
+          </Grid>
+        </Hidden>
+        <Grid item xs={12} sm={9} container direction="column" className={classes.content}>
+          <Grid item>
+          <Typography gutterBottom variant="h5" component="h2">
               {props.item.name}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p" className={classes.contentText}>
+          </Grid>
+          <Grid item>
+          <Typography variant="body2" color="textSecondary" component="p">
               {props.item.description}
             </Typography>
-            <Grid container direction="row" className={classes.contentChip}>
+          </Grid>
+          <Grid container direction="row" className={classes.contentChip}>
               {occupation.map((item, index) => (
                 <Grid item key={index} style={{padding: 5}}>
                   <Chip
@@ -66,8 +72,6 @@ function ContentItem(props) {
                 </Grid>
               ))}
             </Grid>
-            
-          </Grid>
         </Grid>
       </Grid>
     );
