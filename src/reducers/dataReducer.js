@@ -8,6 +8,8 @@ const initialState = {
   content: [],
   total: 0,
   isFetching: false,
+  stance: [],
+  options: [],
   error: null
 };
 

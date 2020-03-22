@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { dataActions } from '../../actions/fetchDataAction';
+
 import Select from 'react-select';
 
 import Paper from '@material-ui/core/Paper';
@@ -25,7 +28,7 @@ let options = [];
 let stances = [];
 
 
-function getOptions(){
+function getFilters(){
   for(let i = 0; i<utilStance.length; i++){
     let obj = {
       value: utilStance[i].id, 
@@ -44,37 +47,62 @@ function getOptions(){
 
 function SearchBar() {
   const classes = useStyles();
-  const [selectedOptions, setSelectedOptions] = useState(null);
-  const [selectedStances, setSelectedStances] = useState(null);
-  const [showOptions, setShowOptions] = useState('none');
-  const [showOptionsOpacity, setShowOptionsOpacity] = useState(0);
+  const [initFilter, setInitFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    stances: [],
+    options: [],
+  });
+  const [showFilters, setShowFilters] = useState({
+    display: 'none',
+    opacity: 0,
+  });
+
+  const dispatch = useDispatch();
 
   const handleChangeOptions = selected => {
-    setSelectedOptions(selected);
+    setFilters(prevState=>{
+      return { ...prevState, options: selected }
+    });
   };
 
   const handleChangeStances = selected => {
-    setSelectedStances(selected);
+    setFilters(prevState=>{
+      return { ...prevState, stances: selected }
+    });
   };
 
-  const toggleOptions = () => {
-    if (showOptions === 'none') {
-      setShowOptions('flex');
+  const toggleFilters = () => {
+    if (showFilters.display === 'none') {
+      setShowFilters(prevState=>{
+        return {...prevState, display: 'flex'}
+      });
       setTimeout(() =>
-        setShowOptionsOpacity(1), 100 // something very short
+        setShowFilters(prevState=>{
+          return {...prevState, opacity: 1}
+        }), 100
       )
     }
-    if (showOptions === 'flex') {
-      setShowOptionsOpacity(0);
+    if (showFilters.display === 'flex') {
+      setShowFilters(prevState=>{
+        return {...prevState, opacity: 0}
+      });
       setTimeout(() =>
-        setShowOptions('none'), 300 // same as transition time
+        setShowFilters(prevState=>{
+          return {...prevState, display: 'none'}
+        }), 300 
       )
     }
   }
 
   useEffect(() => {
-    getOptions();
-  }, []);
+    if(!initFilter){
+      getFilters();
+      console.log("init filters");
+      setInitFilter(true);
+    } else {
+      dispatch(dataActions.getWithOptions(filters));
+    }
+  }, [filters]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.searchBarContainer}>
@@ -95,15 +123,15 @@ function SearchBar() {
         <Grid container item xs={10} direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionContainer} 
           style={{
             transition: 'opacity 0.3s ease',
-            opacity: showOptionsOpacity,
-            display: showOptions,
+            opacity: showFilters.opacity,
+            display: showFilters.display,
           }}
         >
             <Grid item xs={12} md={4} className={classes.searchBarOption}>
             <Select
                 isMulti
                 closeMenuOnSelect={false}
-                value={selectedStances}
+                value={filters.stances}
                 onChange={handleChangeStances}
                 options={stances}
                 placeholder="立場"
@@ -113,7 +141,7 @@ function SearchBar() {
             <Select
               isMulti
               closeMenuOnSelect={false}
-              value={selectedOptions}
+              value={filters.moreOptions}
               onChange={handleChangeOptions}
               options={options}
               placeholder="Options"
@@ -123,9 +151,9 @@ function SearchBar() {
       }
       
       <Grid container direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionButton}>
-          <Button variant="contained" size="small" color="secondary" onClick={toggleOptions}>
+          <Button variant="contained" size="small" color="secondary" onClick={toggleFilters}>
             {
-              (showOptions==='flex') ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>
+              (showFilters.display==='flex') ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>
             }
           </Button>
       </Grid>
