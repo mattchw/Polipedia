@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import fetchDataAction from '../actions/fetchDataAction';
+import { dataActions } from '../actions/fetchDataAction';
 import { getData } from '../reducers/dataReducer';
-
-import { makeStyles } from '@material-ui/core/styles';
 
 import Container from '@material-ui/core/Container';
 import Content from '../components/Content/Content.container'
@@ -17,7 +15,7 @@ function Explore() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchDataAction);
+    dispatch(dataActions.getAll());
   }, []);
 
   return (
