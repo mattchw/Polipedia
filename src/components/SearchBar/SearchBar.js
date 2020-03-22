@@ -47,6 +47,7 @@ function getFilters(){
 
 function SearchBar() {
   const classes = useStyles();
+  const [keyword, setKeyword] = useState("");
   const [initFilter, setInitFilter] = useState(false);
   const [filters, setFilters] = useState({
     stances: [],
@@ -58,6 +59,10 @@ function SearchBar() {
   });
 
   const dispatch = useDispatch();
+
+  const handleChangeKeyword = event => {
+    setKeyword(event.target.value);
+  };
 
   const handleChangeOptions = selected => {
     setFilters(prevState=>{
@@ -94,13 +99,17 @@ function SearchBar() {
     }
   }
 
+  const handleSearch = () => {
+    dispatch(dataActions.getWithOptions(keyword, filters));
+  };
+
   useEffect(() => {
     if(!initFilter){
       getFilters();
       console.log("init filters");
       setInitFilter(true);
     } else {
-      dispatch(dataActions.getWithOptions(filters));
+      dispatch(dataActions.getWithOptions(keyword, filters));
     }
   }, [filters]);
 
@@ -111,10 +120,11 @@ function SearchBar() {
             <InputBase
             className={classes.input}
             placeholder="Search"
-            inputProps={{ 'aria-label': 'search google maps' }}
+            value={keyword}
+            onChange={handleChangeKeyword}
             />
             <Divider orientation="vertical" flexItem />
-            <IconButton type="submit" className={classes.iconButton} aria-label="search">
+            <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={handleSearch}>
                 <SearchIcon />
             </IconButton>
         </Paper>
