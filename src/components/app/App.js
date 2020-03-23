@@ -15,7 +15,7 @@ import NavBar from '../NavBar/NavBar'
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#2f2f2f',
+      main: '#313d4c',
     },
     secondary: {
         main: '#d8d8d8'

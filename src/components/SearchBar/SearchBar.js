@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dataActions } from '../../actions/fetchDataAction';
+import { getFetchingStatus } from '../../reducers/dataReducer';
 
 import Select from 'react-select';
 
@@ -124,7 +125,13 @@ function SearchBar() {
             onChange={handleChangeKeyword}
             />
             <Divider orientation="vertical" flexItem />
-            <IconButton type="submit" className={classes.iconButton} aria-label="search" onClick={handleSearch}>
+            <IconButton
+              type="submit" 
+              className={classes.iconButton} 
+              aria-label="search" 
+              onClick={handleSearch}
+              disabled={(useSelector(getFetchingStatus))||(!keyword)}
+            >
                 <SearchIcon />
             </IconButton>
         </Paper>
@@ -140,6 +147,7 @@ function SearchBar() {
             <Grid item xs={12} md={4} className={classes.searchBarOption}>
             <Select
                 isMulti
+                isDisabled={useSelector(getFetchingStatus)}
                 closeMenuOnSelect={false}
                 value={filters.stances}
                 onChange={handleChangeStances}
@@ -150,6 +158,7 @@ function SearchBar() {
           <Grid item xs={12} md={8} className={classes.searchBarOption}>
             <Select
               isMulti
+              isDisabled={useSelector(getFetchingStatus)}
               closeMenuOnSelect={false}
               value={filters.moreOptions}
               onChange={handleChangeOptions}

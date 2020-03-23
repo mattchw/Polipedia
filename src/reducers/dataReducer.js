@@ -43,3 +43,4 @@ export function dataReducer(state = initialState, action) {
 }
 
 export const getData = state => state.dataReducer;
+export const getFetchingStatus = state => state.dataReducer.isFetching;
