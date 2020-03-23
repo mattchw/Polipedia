@@ -104,7 +104,7 @@ function SearchBar() {
   };
 
   useEffect(() => {
-    if(stances.length==0&&options.length==0){
+    if(stances.length===0&&options.length===0){
       getFilters();
     } else {
       dispatch(dataActions.getWithOptions(keyword, filters));

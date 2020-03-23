@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
@@ -134,7 +133,7 @@ function NavBar(props) {
                 <Link to="/explore?category=youtube" className={classes.link}>
                   <ListItem button className={classes.nested} onClick={handleMenuClose}>
                     <ListItemIcon><YouTubeIcon/></ListItemIcon>
-                    <ListItemText primary="Youtube" />
+                    <ListItemText primary="YouTube" />
                   </ListItem>
                 </Link>
               </List>

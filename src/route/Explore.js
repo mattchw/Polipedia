@@ -10,12 +10,23 @@ import Content from '../components/Content/Content.container'
 import SearchBar from '../components/SearchBar/SearchBar'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-function Explore() {
+const queryString = require('query-string');
+
+function parseQuery(location){
+  console.log(queryString.parse(location.search).category);
+  switch(queryString.parse(location.search).category){
+    default:
+      return dataActions.getAll();
+  }
+}
+
+function Explore({match, location}) {
   const data = useSelector(getData);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(dataActions.getAll());
+    // getQuery(location);
+    dispatch(parseQuery(location));
   }, []);
 
   return (
