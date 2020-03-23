@@ -49,7 +49,6 @@ function getFilters(){
 function SearchBar() {
   const classes = useStyles();
   const [keyword, setKeyword] = useState("");
-  const [initFilter, setInitFilter] = useState(false);
   const [filters, setFilters] = useState({
     stances: [],
     options: [],
@@ -105,10 +104,8 @@ function SearchBar() {
   };
 
   useEffect(() => {
-    if(!initFilter){
+    if(stances.length==0&&options.length==0){
       getFilters();
-      console.log("init filters");
-      setInitFilter(true);
     } else {
       dispatch(dataActions.getWithOptions(keyword, filters));
     }
@@ -144,17 +141,17 @@ function SearchBar() {
             display: showFilters.display,
           }}
         >
-            <Grid item xs={12} md={4} className={classes.searchBarOption}>
+          <Grid item xs={12} md={4} className={classes.searchBarOption}>
             <Select
-                isMulti
-                isDisabled={useSelector(getFetchingStatus)}
-                isSearchable={false}
-                closeMenuOnSelect={false}
-                value={filters.stances}
-                onChange={handleChangeStances}
-                options={stances}
-                placeholder="立場"
-              />
+              isMulti
+              isDisabled={useSelector(getFetchingStatus)}
+              isSearchable={false}
+              closeMenuOnSelect={false}
+              value={filters.stances}
+              onChange={handleChangeStances}
+              options={stances}
+              placeholder="立場"
+            />
           </Grid>
           <Grid item xs={12} md={8} className={classes.searchBarOption}>
             <Select
