@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Collapse from '@material-ui/core/Collapse';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -27,6 +28,10 @@ import ExploreIcon from '@material-ui/icons/Search';
 import UmbrellaIcon from '@material-ui/icons/BeachAccess';
 import InfoIcon from '@material-ui/icons/Info';
 import InvertColorsIcon from '@material-ui/icons/InvertColors';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import PersonIcon from '@material-ui/icons/Person';
+import YouTubeIcon from '@material-ui/icons/YouTube';
 
 // style
 import styles from './NavBar.style'
@@ -48,15 +53,20 @@ function HideOnScroll(props) {
 function NavBar(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const [openExplore, setOpenExplore] = React.useState(false);
   const shift = useMediaQuery('(min-width:600px)');
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleMenuOpen = () => {
+    setOpenMenu(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+  const handleMenuClose = () => {
+    setOpenMenu(false);
+  };
+
+  const handleExplore = () => {
+    setOpenExplore(!openExplore);
   };
   
   return (
@@ -66,16 +76,16 @@ function NavBar(props) {
         <AppBar
           position="fixed"
           className={clsx(classes.appBar, {
-            [classes.appBarShift]: open,
+            [classes.appBarShift]: openMenu,
           })}
         >
           <Toolbar>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              aria-label="open menu"
+              onClick={handleMenuOpen}
               edge="start"
-              className={clsx(classes.menuButton, open && classes.hide)}
+              className={clsx(classes.menuButton, openMenu && classes.hide)}
             >
               <MenuIcon />
             </IconButton>
@@ -88,38 +98,50 @@ function NavBar(props) {
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
-        onClose={handleDrawerClose}
+        open={openMenu}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <div role="presentation"
-          onClick={handleDrawerClose}
-          onKeyDown={handleDrawerClose}>
+        <div role="presentation">
           <div className={classes.drawerHeader}>
-            <IconButton onClick={handleDrawerClose}>
+            <IconButton onClick={handleMenuClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </div>
           <Divider />
           <List>
             <Link to="/" className={classes.link}>
-              <ListItem button>
+              <ListItem button onClick={handleMenuClose}>
                 <ListItemIcon><HomeIcon/></ListItemIcon>
                 <ListItemText primary='主頁' />
               </ListItem>
             </Link>
 
-            <Link to="/explore" className={classes.link}>
-              <ListItem button>
-                <ListItemIcon><ExploreIcon/></ListItemIcon>
-                <ListItemText primary='圖鑑' />
-              </ListItem>
-            </Link>
+            <ListItem button onClick={handleExplore}>
+              <ListItemIcon><ExploreIcon/></ListItemIcon>
+              <ListItemText primary='圖鑑' />
+              {openExplore ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openExplore} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/explore" className={classes.link}>
+                  <ListItem button className={classes.nested} onClick={handleMenuClose}>
+                    <ListItemIcon><PersonIcon/></ListItemIcon>
+                    <ListItemText primary="人" />
+                  </ListItem>
+                </Link>
+                <Link to="/explore?category=youtube" className={classes.link}>
+                  <ListItem button className={classes.nested} onClick={handleMenuClose}>
+                    <ListItemIcon><YouTubeIcon/></ListItemIcon>
+                    <ListItemText primary="Youtube" />
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>            
 
             <Link to="/encourage" className={classes.link}>
-              <ListItem button>
+              <ListItem button onClick={handleMenuClose}>
                 <ListItemIcon><UmbrellaIcon/></ListItemIcon>
                 <ListItemText primary='勿忘初衷' />
               </ListItem>
@@ -129,7 +151,7 @@ function NavBar(props) {
           <Divider />
           <List>
             <Link to="/about" className={classes.link}>
-              <ListItem button>
+              <ListItem button onClick={handleMenuClose}>
                 <ListItemIcon><InfoIcon/></ListItemIcon>
                 <ListItemText primary='關於我們' />
               </ListItem>
@@ -141,7 +163,7 @@ function NavBar(props) {
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: shift&&open,
+          [classes.contentShift]: shift&&openMenu,
         })}
       >
         <div className={classes.drawerHeader} />

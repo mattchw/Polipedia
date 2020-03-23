@@ -32,10 +32,10 @@ function App() {
         <Router>
           <NavBar>
             <Switch>
-              <Route exact component={Home} path="/" />
-              <Route exact component={Explore} path="/explore" />
-              <Route exact component={Encourage} path="/encourage" />
-              <Route exact component={About} path="/about" />
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/explore" component={Explore}/>
+              <Route exact path="/encourage" component={Encourage}/>
+              <Route exact path="/about" component={About}/>
             </Switch>
           </NavBar>
         </Router>

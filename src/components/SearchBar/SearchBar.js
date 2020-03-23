@@ -148,6 +148,7 @@ function SearchBar() {
             <Select
                 isMulti
                 isDisabled={useSelector(getFetchingStatus)}
+                isSearchable={false}
                 closeMenuOnSelect={false}
                 value={filters.stances}
                 onChange={handleChangeStances}
@@ -159,6 +160,7 @@ function SearchBar() {
             <Select
               isMulti
               isDisabled={useSelector(getFetchingStatus)}
+              isSearchable={false}
               closeMenuOnSelect={false}
               value={filters.moreOptions}
               onChange={handleChangeOptions}

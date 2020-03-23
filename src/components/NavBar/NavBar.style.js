@@ -59,4 +59,7 @@ export default makeStyles(theme => ({
       textDecoration: 'none',
       color: '#404040',
     },
+    nested: {
+      paddingLeft: theme.spacing(4),
+    },
   }));
