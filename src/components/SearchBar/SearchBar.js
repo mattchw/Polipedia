@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dataActions } from '../../actions/fetchDataAction';
-import { getFetchingStatus } from '../../reducers/dataReducer';
+import { getFetchingStatus, getCurrentPage, getKeyword, getFilters } from '../../reducers/dataReducer';
 
 import Select from 'react-select';
 
@@ -29,7 +29,7 @@ let options = [];
 let stances = [];
 
 
-function getFilters(){
+function initFilters(){
   for(let i = 0; i<utilStance.length; i++){
     let obj = {
       value: utilStance[i].id, 
@@ -48,11 +48,9 @@ function getFilters(){
 
 function SearchBar() {
   const classes = useStyles();
-  const [keyword, setKeyword] = useState("");
-  const [filters, setFilters] = useState({
-    stances: [],
-    options: [],
-  });
+  const page = useSelector(getCurrentPage);
+  const keyword = useSelector(getKeyword);
+  const filters = useSelector(getFilters);
   const [showFilters, setShowFilters] = useState({
     display: 'none',
     opacity: 0,
@@ -61,19 +59,17 @@ function SearchBar() {
   const dispatch = useDispatch();
 
   const handleChangeKeyword = event => {
-    setKeyword(event.target.value);
+    dispatch(dataActions.updateKeywordAndFilters(event.target.value, filters));
   };
 
   const handleChangeOptions = selected => {
-    setFilters(prevState=>{
-      return { ...prevState, options: selected }
-    });
+    filters.options = selected;
+    dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
   };
 
   const handleChangeStances = selected => {
-    setFilters(prevState=>{
-      return { ...prevState, stances: selected }
-    });
+    filters.stances = selected;
+    dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
   };
 
   const toggleFilters = () => {
@@ -100,14 +96,15 @@ function SearchBar() {
   }
 
   const handleSearch = () => {
-    dispatch(dataActions.getWithOptions(keyword, filters));
+    let page = 
+    dispatch(dataActions.getWithOptions(keyword, filters, page));
   };
 
   useEffect(() => {
     if(stances.length===0&&options.length===0){
-      getFilters();
+      initFilters();
     } else {
-      dispatch(dataActions.getWithOptions(keyword, filters));
+      dispatch(dataActions.getWithOptions(keyword, filters, page));
     }
   }, [filters]);
 

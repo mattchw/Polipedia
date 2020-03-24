@@ -20,7 +20,7 @@ function parseQuery(location){
   }
 }
 
-function Explore({match, location}) {
+function Explore({location}) {
   const data = useSelector(getData);
   const dispatch = useDispatch();
 
