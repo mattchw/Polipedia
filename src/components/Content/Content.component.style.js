@@ -21,7 +21,7 @@ export default makeStyles(theme => ({
     image: {
       objectFit: 'cover',
       width: '100%',
-      height: '100%',
+      height: 250,
     },
     content: {
       paddingLeft: 10,

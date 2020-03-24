@@ -9,9 +9,9 @@ function Content(props) {
   return (
     <div>
       <Grid container direction="row" justify="center" alignItems="center">
-        <Grid item container direction="row" xs={10}>
-          <Typography variant="h6" component="p">
-            Result: {props.data.total}
+        <Grid item container direction="row" xs={11}>
+          <Typography variant="overline">
+            搜尋結果： {props.data.total}
           </Typography>
         </Grid>
       </Grid>
