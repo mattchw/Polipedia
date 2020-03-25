@@ -124,7 +124,7 @@ function NavBar(props) {
             </ListItem>
             <Collapse in={openExplore} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <Link to="/explore" className={classes.link}>
+                <Link to="/explore?category=persons" className={classes.link}>
                   <ListItem button className={classes.nested} onClick={handleMenuClose}>
                     <ListItemIcon><PersonIcon/></ListItemIcon>
                     <ListItemText primary="人" />

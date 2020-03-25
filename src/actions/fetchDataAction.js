@@ -5,7 +5,7 @@ const getAll = () => async (dispatch) => {
     try {
         dispatch(fetchDataBegin());
         const result = await axios(
-            '/api/v1/persons',
+            '/api/v1/persons?sort=name',
         );
         // console.log(result);
         dispatch(fetchDataSuccess(result.data));
@@ -48,6 +48,10 @@ const getWithOptions = (keyword, filters, page) => async (dispatch) => {
             }
             query += 'page='+(page-1);        
         }
+        if (query.length>1){
+            query += '&';
+        }
+        query += 'sort=name';
         console.log(query);
         dispatch(fetchDataBegin());
         const result = await axios(
