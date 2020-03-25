@@ -1,4 +1,4 @@
-import {fetchDataBegin, fetchDataSuccess, fetchDataFailure} from './dataAction';
+import {fetchDataBegin, fetchDataSuccess, fetchDataFailure, UpdatePage, UpdateKeywordAndFilters} from './dataAction';
 import axios from 'axios';
 
 const getAll = () => async (dispatch) => {
@@ -15,9 +15,10 @@ const getAll = () => async (dispatch) => {
     }
 };
 
-const getWithOptions = (keyword, filters) => async (dispatch) => {
+const getWithOptions = (keyword, filters, page) => async (dispatch) => {
     try {
         let query = '?';
+        console.log("page: "+page);
         if (keyword) {
             query += ('keyword='+keyword);
             if ((filters.stances && filters.stances.length!==0) || (filters.options && filters.options.length!==0))
@@ -41,6 +42,12 @@ const getWithOptions = (keyword, filters) => async (dispatch) => {
                     query += '&';
             }
         }
+        if (page !=1){
+            if (query.length>1){
+                query += '&';
+            }
+            query += 'page='+(page-1);        
+        }
         console.log(query);
         dispatch(fetchDataBegin());
         const result = await axios(
@@ -53,7 +60,21 @@ const getWithOptions = (keyword, filters) => async (dispatch) => {
     }
 };
 
+const updatePage = (page) => (dispatch) => {
+    console.log("the page is "+page);
+    dispatch(UpdatePage(page));
+};
+
+const updateKeywordAndFilters = (keyword, filters) => (dispatch) => {
+    console.log("keyword: "+keyword);
+    console.log("filters: ");
+    console.log(filters);
+    dispatch(UpdateKeywordAndFilters(keyword, filters));
+};
+
 export const dataActions = {
     getAll,
     getWithOptions,
+    updatePage,
+    updateKeywordAndFilters,
 };

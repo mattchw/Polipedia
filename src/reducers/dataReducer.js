@@ -1,15 +1,22 @@
 import {
   FETCH_DATA_BEGIN,
   FETCH_DATA_SUCCESS,
-  FETCH_DATA_FAILURE
+  FETCH_DATA_FAILURE,
+  UPDATE_PAGE,
+  UPDATE_KEYWORD_AND_FILTERS,
 } from '../actions/dataAction';
 
 const initialState = {
   content: [],
-  total: 0,
+  totalElements: 0,
+  totalPages: 0,
+  currentPage: 1,
+  keyword: "",
+  filters: {
+    stances: [],
+    options: [],
+  },
   isFetching: false,
-  stance: [],
-  options: [],
   error: null
 };
 
@@ -27,7 +34,8 @@ export function dataReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         content: action.payload.data.content,
-        total: action.payload.data.totalElements,
+        totalElements: action.payload.data.totalElements,
+        totalPages: action.payload.data.totalPages,
       };
 
     case FETCH_DATA_FAILURE:
@@ -35,6 +43,19 @@ export function dataReducer(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.payload.error,
+      };
+    
+    case UPDATE_PAGE:
+      return {
+        ...state,
+        currentPage: action.page,
+      };
+
+    case UPDATE_KEYWORD_AND_FILTERS:
+      return {
+        ...state,
+        keyword: action.keyword,
+        filters: action.filters,
       };
   
     default:
@@ -44,3 +65,6 @@ export function dataReducer(state = initialState, action) {
 
 export const getData = state => state.dataReducer;
 export const getFetchingStatus = state => state.dataReducer.isFetching;
+export const getCurrentPage = state => state.dataReducer.currentPage;
+export const getKeyword = state => state.dataReducer.keyword;
+export const getFilters = state => state.dataReducer.filters;

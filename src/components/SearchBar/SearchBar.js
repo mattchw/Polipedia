@@ -29,7 +29,7 @@ let options = [];
 let stances = [];
 
 
-function getFilters(){
+function initFilters(){
   for(let i = 0; i<utilStance.length; i++){
     let obj = {
       value: utilStance[i].id, 
@@ -46,13 +46,11 @@ function getFilters(){
   }
 }
 
-function SearchBar() {
+function SearchBar(props) {
   const classes = useStyles();
-  const [keyword, setKeyword] = useState("");
-  const [filters, setFilters] = useState({
-    stances: [],
-    options: [],
-  });
+  const page = props.page;
+  const keyword = props.keyword;
+  const filters = props.filters;
   const [showFilters, setShowFilters] = useState({
     display: 'none',
     opacity: 0,
@@ -61,19 +59,21 @@ function SearchBar() {
   const dispatch = useDispatch();
 
   const handleChangeKeyword = event => {
-    setKeyword(event.target.value);
-  };
-
-  const handleChangeOptions = selected => {
-    setFilters(prevState=>{
-      return { ...prevState, options: selected }
-    });
+    dispatch(dataActions.updateKeywordAndFilters(event.target.value, filters));
   };
 
   const handleChangeStances = selected => {
-    setFilters(prevState=>{
-      return { ...prevState, stances: selected }
-    });
+    filters.stances = selected;
+    dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
+    dispatch(dataActions.updatePage(1));
+    dispatch(dataActions.getWithOptions(keyword, filters, 1));
+  };
+
+  const handleChangeOptions = selected => {
+    filters.options = selected;
+    dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
+    dispatch(dataActions.updatePage(1));
+    dispatch(dataActions.getWithOptions(keyword, filters, 1));
   };
 
   const toggleFilters = () => {
@@ -100,16 +100,14 @@ function SearchBar() {
   }
 
   const handleSearch = () => {
-    dispatch(dataActions.getWithOptions(keyword, filters));
+    dispatch(dataActions.getWithOptions(keyword, filters, page));
   };
 
   useEffect(() => {
     if(stances.length===0&&options.length===0){
-      getFilters();
-    } else {
-      dispatch(dataActions.getWithOptions(keyword, filters));
+      initFilters();
     }
-  }, [filters]);
+  }, []);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.searchBarContainer}>
