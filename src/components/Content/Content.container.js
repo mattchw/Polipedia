@@ -12,15 +12,12 @@ import { dataActions } from '../../actions/fetchDataAction';
 import { getCurrentPage, getKeyword, getFilters } from '../../reducers/dataReducer';
 
 function Content(props) {
-  const page = useSelector(getCurrentPage);
-  const keyword = useSelector(getKeyword);
-  const filters = useSelector(getFilters);
-  //const [page,setPage] = useState(useSelector(getCurrentPage));
+  const page = props.page;
+  const keyword = props.keyword;
+  const filters = props.filters;
   const dispatch = useDispatch();
 
   const handleChange = (event, value) => {
-    //setPage(value);
-    console.log("current page: "+page);
     dispatch(dataActions.updatePage(value));
     dispatch(dataActions.getWithOptions(keyword, filters, value));
   };
@@ -30,7 +27,7 @@ function Content(props) {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item container direction="row" xs={11}>
           <Typography variant="overline">
-            搜尋結果： {props.data.totalElements} ({props.data.totalPages})
+            搜尋結果： {props.data.totalElements} (共{props.data.totalPages}頁)
           </Typography>
         </Grid>
       </Grid>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { dataActions } from '../actions/fetchDataAction';
-import { getData } from '../reducers/dataReducer';
+import { getData, getCurrentPage, getKeyword, getFilters } from '../reducers/dataReducer';
 
 import Container from '@material-ui/core/Container';
 import Content from '../components/Content/Content.container'
@@ -22,6 +22,9 @@ function parseQuery(location){
 
 function Explore({location}) {
   const data = useSelector(getData);
+  const page = useSelector(getCurrentPage);
+  const keyword = useSelector(getKeyword);
+  const filters = useSelector(getFilters);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,9 +40,9 @@ function Explore({location}) {
         alignItems: 'center',
       }}
     >
-        <SearchBar/>
+        <SearchBar page={page} keyword={keyword} filters={filters}/>
         {
-          data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content data={data}/>
+          data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content data={data} page={page} keyword={keyword} filters={filters}/>
         }
     </Container> 
   );
