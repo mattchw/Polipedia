@@ -20,6 +20,7 @@ const getWithOptions = (keyword, filters, page) => async (dispatch) => {
         let query = '?';
         console.log("page: "+page);
         if (keyword) {
+            
             query += ('keyword='+keyword);
             if ((filters.stances && filters.stances.length!==0) || (filters.options && filters.options.length!==0))
                 query += '&';
