@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Switch } from 'react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 import './App.css';
 
@@ -12,7 +12,7 @@ import Encourage from '../../route/Encourage'
 import About from '../../route/About'
 import NavBar from '../NavBar/NavBar'
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     primary: {
       main: '#313d4c',
@@ -23,6 +23,7 @@ const theme = createMuiTheme({
     }
   },
 )
+theme = responsiveFontSizes(theme);
 
 function App() {
 
