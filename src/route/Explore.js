@@ -8,6 +8,7 @@ import { getData, getCurrentPage, getKeyword, getFilters } from '../reducers/dat
 import Container from '@material-ui/core/Container';
 import Content from '../components/Content/Content.container'
 import SearchBar from '../components/SearchBar/SearchBar'
+import DrawerHeader from '../components/DrawerHeader/DrawerHeader'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const queryString = require('query-string');
@@ -40,6 +41,7 @@ function Explore({location}) {
         alignItems: 'center',
       }}
     >
+      <DrawerHeader/>
         <SearchBar page={page} keyword={keyword} filters={filters}/>
         {
           data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content data={data} page={page} keyword={keyword} filters={filters}/>

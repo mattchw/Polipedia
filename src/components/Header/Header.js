@@ -15,7 +15,7 @@ function Header() {
   const classes = useStyles();
 
   return (
-    <Container maxWidth='xl' className={classes.container} className="header">
+    <Container maxWidth='xl' className="header">
       <Grid container direction="column" justify="center" alignItems="center" className={classes.containerItem}>
         <Grid item>
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>

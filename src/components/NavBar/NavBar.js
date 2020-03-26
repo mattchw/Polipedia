@@ -56,6 +56,8 @@ function NavBar(props) {
   const [openExplore, setOpenExplore] = React.useState(false);
   const shift = useMediaQuery('(min-width:600px)');
 
+  console.log(window.location.href);
+
   const handleMenuOpen = () => {
     setOpenMenu(true);
   };
@@ -165,7 +167,6 @@ function NavBar(props) {
           [classes.contentShift]: shift&&openMenu,
         })}
       >
-        <div className={classes.drawerHeader} />
         {props.children}
       </main>
     </div>
