@@ -8,8 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-const useStyles = styles;
+import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
+const useStyles = styles;
 
 function Header() {
   const classes = useStyles();
@@ -23,7 +24,7 @@ function Header() {
           </Typography>
         </Grid>
         <Grid item xs={8}>
-          <Typography variant="h5" align="center" color="textSecondary" paragraph>
+          <Typography variant="h6" align="center" color="textSecondary" paragraph>
               黃藍是政見，黑白是良知。
           </Typography>
         </Grid>

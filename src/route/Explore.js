@@ -29,7 +29,6 @@ function Explore({location}) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // getQuery(location);
     dispatch(parseQuery(location));
   }, []);
 
