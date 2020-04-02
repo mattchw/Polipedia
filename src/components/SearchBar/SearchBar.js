@@ -21,15 +21,18 @@ import style from './SearchBar.style'
 
 import utilStance from '../../utils/stance'
 import utilOccupation from '../../utils/occupation'
+import utilCategory from '../../utils/category'
 
 const useStyles = style;
 
-let options = [];
-
 let stances = [];
 
+let options = [];
 
-function initFilters(){
+
+function initFilters(category){
+  stances = [];
+  options = [];
   for(let i = 0; i<utilStance.length; i++){
     let obj = {
       value: utilStance[i].id, 
@@ -37,10 +40,22 @@ function initFilters(){
     }
     stances.push(obj);
   }
-  for(let j = 0; j<utilOccupation.length; j++){
+  let tmp = [];
+  switch(category){
+    case("persons"):
+      tmp = utilOccupation;
+      break;
+    case("youtubes"):
+      tmp = utilCategory;
+      break;
+    default:
+      tmp = utilOccupation;
+
+  }
+  for(let j = 0; j<tmp.length; j++){
     let obj = {
-      value: utilOccupation[j].id, 
-      label: utilOccupation[j].name
+      value: tmp[j].id, 
+      label: tmp[j].name
     }
     options.push(obj);
   }
@@ -66,14 +81,14 @@ function SearchBar(props) {
     filters.stances = selected;
     dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
     dispatch(dataActions.updatePage(1));
-    dispatch(dataActions.getWithOptions(keyword, filters, 1));
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, 1));
   };
 
   const handleChangeOptions = selected => {
     filters.options = selected;
     dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
     dispatch(dataActions.updatePage(1));
-    dispatch(dataActions.getWithOptions(keyword, filters, 1));
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, 1));
   };
 
   const toggleFilters = () => {
@@ -100,14 +115,12 @@ function SearchBar(props) {
   }
 
   const handleSearch = () => {
-    dispatch(dataActions.getWithOptions(keyword, filters, page));
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, page));
   };
 
   useEffect(() => {
-    if(stances.length===0&&options.length===0){
-      initFilters();
-    }
-  }, []);
+    initFilters(props.category);
+  }, [props.category]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.searchBarContainer}>

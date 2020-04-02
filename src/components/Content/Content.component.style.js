@@ -13,6 +13,7 @@ export default makeStyles(theme => ({
       borderLeft: 'solid',
       borderLeftWidth: 10,
       minHeight: 120,
+      padding: '5px 5px 5px 0',
     },
     stance:{
       width: 10,
@@ -31,6 +32,10 @@ export default makeStyles(theme => ({
       whiteSpace: 'nowrap',
       overflow: 'hidden !important',
       textOverflow: 'ellipsis',
+    },
+    contentAvatar: {
+      border: '2px solid',
+      zIndex: 0,
     },
     contentChip: {
       paddingTop: 10,

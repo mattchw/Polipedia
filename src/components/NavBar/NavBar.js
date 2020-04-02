@@ -56,8 +56,6 @@ function NavBar(props) {
   const [openExplore, setOpenExplore] = React.useState(false);
   const shift = useMediaQuery('(min-width:600px)');
 
-  console.log(window.location.href);
-
   const handleMenuOpen = () => {
     setOpenMenu(true);
   };
@@ -90,7 +88,6 @@ function NavBar(props) {
             >
               <MenuIcon />
             </IconButton>
-            <InvertColorsIcon/>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
@@ -132,7 +129,7 @@ function NavBar(props) {
                     <ListItemText primary="人" />
                   </ListItem>
                 </Link>
-                <Link to="/explore?category=youtube" className={classes.link}>
+                <Link to="/explore?category=youtubes" className={classes.link}>
                   <ListItem button className={classes.nested} onClick={handleMenuClose}>
                     <ListItemIcon><YouTubeIcon/></ListItemIcon>
                     <ListItemText primary="YouTube" />
