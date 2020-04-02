@@ -19,7 +19,7 @@ function Content(props) {
 
   const handleChange = (event, value) => {
     dispatch(dataActions.updatePage(value));
-    dispatch(dataActions.getWithOptions(keyword, filters, value));
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, value));
   };
 
   return (
@@ -32,7 +32,7 @@ function Content(props) {
         </Grid>
       </Grid>
       {props.data.content.map((item, index) => (
-        <ContentItem key={index} item={item}/>
+        <ContentItem key={index} category={props.category} item={item}/>
       ))}
       <Grid container direction="row" justify="center" alignItems="center" style={{padding: '30px 0'}}>
         <Pagination

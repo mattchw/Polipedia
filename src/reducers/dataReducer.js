@@ -4,6 +4,7 @@ import {
   FETCH_DATA_FAILURE,
   UPDATE_PAGE,
   UPDATE_KEYWORD_AND_FILTERS,
+  CLEAR_KEYWORD_AND_FILTERS,
 } from '../actions/dataAction';
 
 const initialState = {
@@ -56,6 +57,17 @@ export function dataReducer(state = initialState, action) {
         ...state,
         keyword: action.keyword,
         filters: action.filters,
+      };
+
+    case CLEAR_KEYWORD_AND_FILTERS:
+      return {
+        ...state,
+        currentPage: 1,
+        keyword: "",
+        filters: {
+          stances: [],
+          options: [],
+        }
       };
   
     default:

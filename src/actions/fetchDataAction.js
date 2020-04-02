@@ -1,13 +1,13 @@
-import {fetchDataBegin, fetchDataSuccess, fetchDataFailure, UpdatePage, UpdateKeywordAndFilters} from './dataAction';
+import {fetchDataBegin, fetchDataSuccess, fetchDataFailure, UpdatePage, UpdateKeywordAndFilters, ClearKeywordAndFilters} from './dataAction';
 import axios from 'axios';
 
-const getAll = () => async (dispatch) => {
+const getAll = (category) => async (dispatch) => {
     try {
         dispatch(fetchDataBegin());
         const result = await axios(
-            '/api/v1/persons?sort=name',
+            '/api/v1/'+category+'?sort=name',
         );
-        // console.log(result);
+        console.log(result);
         dispatch(fetchDataSuccess(result.data));
     } catch (error) {
         console.log(error);
@@ -15,48 +15,33 @@ const getAll = () => async (dispatch) => {
     }
 };
 
-const getWithOptions = (keyword, filters, page) => async (dispatch) => {
+const getWithOptions = (category, keyword, filters, page) => async (dispatch) => {
     try {
-        let query = '?';
-        console.log("page: "+page);
+        const querystring = require('querystring');
+        
+        let stanceAndOption = {
+            stance: [],
+            options: [],
+            page: page-1
+        }
         if (keyword) {
-            
-            query += ('keyword='+keyword);
-            if ((filters.stances && filters.stances.length!==0) || (filters.options && filters.options.length!==0))
-                query += '&';
+            stanceAndOption.keyword=keyword;
         }
-        // stances
-        if (filters.stances && filters.stances.length!==0) {
+        if (filters.stances) {
             for(let i = 0; i<filters.stances.length; i++){
-                query += ('stance='+filters.stances[i].value);
-                if (i+1!==filters.stances.length)
-                    query += '&';
+                stanceAndOption.stance.push(filters.stances[i].value);
             }
-            if (filters.options && filters.options.length!==0)
-                query += '&';
         }
-        // options
-        if (filters.options && filters.options.length!==0) {
+        if (filters.options) {
             for(let j = 0; j<filters.options.length; j++){
-                query += ('occupation='+filters.options[j].value);
-                if (j+1!==filters.options.length)
-                    query += '&';
+                stanceAndOption.occupation.push(filters.options[j].value);
             }
         }
-        if (page !=1){
-            if (query.length>1){
-                query += '&';
-            }
-            query += 'page='+(page-1);        
-        }
-        if (query.length>1){
-            query += '&';
-        }
-        query += 'sort=name';
-        console.log(query);
+        let queryString = querystring.stringify(stanceAndOption);
+
         dispatch(fetchDataBegin());
         const result = await axios(
-            '/api/v1/persons'+query,
+            '/api/v1/'+category+'?'+queryString+'&sort=name',
         );
         dispatch(fetchDataSuccess(result.data));
     } catch (error) {
@@ -77,9 +62,14 @@ const updateKeywordAndFilters = (keyword, filters) => (dispatch) => {
     dispatch(UpdateKeywordAndFilters(keyword, filters));
 };
 
+const clearKeywordAndFilters = () => (dispatch) => {
+    dispatch(ClearKeywordAndFilters());
+};
+
 export const dataActions = {
     getAll,
     getWithOptions,
     updatePage,
     updateKeywordAndFilters,
+    clearKeywordAndFilters,
 };
