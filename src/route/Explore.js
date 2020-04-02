@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,7 +24,7 @@ function Explore({location}) {
   useEffect(() => {
     dispatch(dataActions.clearKeywordAndFilters());
     dispatch(dataActions.getAll(category));
-  }, [category]);
+  }, [category, dispatch]);
 
   return (
     <Container

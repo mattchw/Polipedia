@@ -26,7 +26,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Search';
 import UmbrellaIcon from '@material-ui/icons/BeachAccess';
 import InfoIcon from '@material-ui/icons/Info';
-import InvertColorsIcon from '@material-ui/icons/InvertColors';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import PersonIcon from '@material-ui/icons/Person';

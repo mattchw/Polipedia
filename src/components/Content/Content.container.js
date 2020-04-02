@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +9,6 @@ import ContentItem from './Content.component'
 import Pagination from '@material-ui/lab/Pagination';
 
 import { dataActions } from '../../actions/fetchDataAction';
-import { getCurrentPage, getKeyword, getFilters } from '../../reducers/dataReducer';
 
 function Content(props) {
   const page = props.page;

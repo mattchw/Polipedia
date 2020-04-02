@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Header.css'
 
 import styles from './Header.style'
@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
-import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import { Link } from 'react-scroll'
 
 const useStyles = styles;
 
@@ -24,15 +24,23 @@ function Header() {
           </Typography>
         </Grid>
         <Grid item xs={8}>
+          <Typography variant="h5" align="center" color="textSecondary" paragraph>
+            「黃藍是政見，黑白是良知」
+          </Typography>
           <Typography variant="h6" align="center" color="textSecondary" paragraph>
-              黃藍是政見，黑白是良知。
+            呢個圖鑑目的係認清一個人、youtube channel⋯⋯，等你發現一直敬仰嘅人原來支持政府、警察；默不作聲嘅人原來支持學生、示威者。
           </Typography>
         </Grid>
         <Grid container spacing={2} justify="center">
-          <Grid item >
-            <Button variant="contained" color="primary">
+          <Grid item>
+            <Button variant="contained" color="primary" style={{margin: 'auto 5px'}}>
               開始
             </Button>
+            <Link activeClass="active" to="intro" spy={true} smooth={true} duration={500} >
+              <Button variant="contained" color="secondary" style={{margin: 'auto 5px'}}>
+                原則
+              </Button>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
