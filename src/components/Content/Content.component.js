@@ -26,7 +26,7 @@ function ContentItem(props) {
       if(item.occupation){
         let tmp = [];
         for(let i = 0; i<utilOccupation.length; i++){
-          for(let j = 0; j<item.occupation.length; j++){
+          for(let j=0; j<item.occupation.length;j++){
             if(item.occupation[j].value===utilOccupation[i].id){
               tmp.push(utilOccupation[i].name);
             }
@@ -37,7 +37,7 @@ function ContentItem(props) {
       if(item.category){
         let tmp = [];
         for(let i = 0; i<utilCategory.length; i++){
-          for(let j = 0; j<item.category.length; j++){
+          for(let j=0; j<item.category.length;j++){
             if(item.category[j].value===utilCategory[i].id){
               tmp.push(utilCategory[i].name);
             }

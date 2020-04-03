@@ -5,7 +5,7 @@ const getAll = (category) => async (dispatch) => {
 	try {
 		dispatch(fetchDataBegin());
 		const result = await axios(
-			'/api/v1/' + category + '?sort=name',
+			'http://yellowblue-environment.eba-vnpuid6r.us-east-2.elasticbeanstalk.com/api/v1/' + category + '?sort=name',
 		);
 		console.log(result);
 		dispatch(fetchDataSuccess(result.data));
@@ -21,7 +21,7 @@ const getWithOptions = (category, keyword, filters, page) => async (dispatch) =>
 
 		let stanceAndOption = {
 			stance: [],
-			options: [],
+			option: [],
 			page: page - 1
 		}
 		if (keyword) {
@@ -34,14 +34,15 @@ const getWithOptions = (category, keyword, filters, page) => async (dispatch) =>
 		}
 		if (filters.options) {
 			for (let j = 0; j < filters.options.length; j++) {
-				stanceAndOption.occupation.push(filters.options[j].value);
+				stanceAndOption.option.push(filters.options[j].value);
 			}
 		}
 		let queryString = querystring.stringify(stanceAndOption);
 
 		dispatch(fetchDataBegin());
+		console.log("query string: "+queryString);
 		const result = await axios(
-			'/api/v1/' + category + '?' + queryString + '&sort=name',
+			'http://yellowblue-environment.eba-vnpuid6r.us-east-2.elasticbeanstalk.com/api/v1/' + category + '?' + queryString + '&sort=name',
 		);
 		dispatch(fetchDataSuccess(result.data));
 	} catch (error) {
