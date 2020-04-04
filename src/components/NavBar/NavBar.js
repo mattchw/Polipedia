@@ -135,14 +135,7 @@ function NavBar(props) {
                   </ListItem>
                 </Link>
               </List>
-            </Collapse>            
-
-            <Link to="/encourage" className={classes.link}>
-              <ListItem button onClick={handleMenuClose}>
-                <ListItemIcon><UmbrellaIcon/></ListItemIcon>
-                <ListItemText primary='勿忘初衷' />
-              </ListItem>
-            </Link>
+            </Collapse>           
             
           </List>
           <Divider />
