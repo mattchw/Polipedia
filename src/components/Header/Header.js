@@ -30,7 +30,7 @@ function Header() {
             「黃藍是政見，黑白是良知」
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" paragraph>
-            呢個圖鑑目的係令你認清一個人、youtube channel⋯⋯，令你發現一直敬仰嘅人原來支持政府、警察；沉默低調嘅人原來支持學生、示威者。
+            呢個圖鑑會令你發現——一直敬仰嘅人原來支持政府、警察；沉默低調嘅人原來支持學生、示威者。
           </Typography>
         </Grid>
         <Grid container spacing={2} justify="center">
