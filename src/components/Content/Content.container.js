@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
@@ -12,7 +12,7 @@ import { dataActions } from '../../actions/fetchDataAction';
 
 function Content(props) {
   const page = props.page;
-  const [content, setContent] = useState([]);
+  // const [content, setContent] = useState([]);
   const keyword = props.keyword;
   const filters = props.filters;
   const dispatch = useDispatch();

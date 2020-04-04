@@ -41,4 +41,15 @@ export default makeStyles(theme => ({
       paddingTop: 10,
       paddingBottom: 10,
     },
+    avatarSizeSmall: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    avatarSizeLarge: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
+    name:{
+      padding: 5,
+    }
 }));

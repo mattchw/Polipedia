@@ -30,7 +30,7 @@ function Header() {
             「黃藍是政見，黑白是良知」
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" paragraph>
-            邊個撐政府、警察？邊個撐學生？你一目了然。
+            邊個撐政府、警察？邊個撐學生？一目了然。
           </Typography>
         </Grid>
         <Grid container spacing={2} justify="center">
