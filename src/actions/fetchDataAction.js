@@ -5,7 +5,7 @@ const getAll = (category) => async (dispatch) => {
 	try {
 		dispatch(fetchDataBegin());
 		const result = await axios(
-			'http://yellowblue-environment.eba-vnpuid6r.us-east-2.elasticbeanstalk.com/api/v1/' + category + '?sort=name',
+			'https://yellow-blue.net/api/v1/' + category + '?sort=name',
 		);
 		console.log(result);
 		dispatch(fetchDataSuccess(result.data));
@@ -42,7 +42,7 @@ const getWithOptions = (category, keyword, filters, page) => async (dispatch) =>
 		dispatch(fetchDataBegin());
 		console.log("query string: "+queryString);
 		const result = await axios(
-			'http://yellowblue-environment.eba-vnpuid6r.us-east-2.elasticbeanstalk.com/api/v1/' + category + '?' + queryString + '&sort=name',
+			'https://yellow-blue.net/api/v1/' + category + '?' + queryString + '&sort=name',
 		);
 		dispatch(fetchDataSuccess(result.data));
 	} catch (error) {
