@@ -6,13 +6,14 @@ export default makeStyles(theme => ({
       display: 'flex',
       alignItems: 'center',
     },
-    cardContainer:{
-      padding: 10,
-    },
     card:{
+      margin: '10px 0',
       borderRadius: 10,
       boxShadow: '1px 1px 3px grey',
+      borderLeft: 'solid',
+      borderLeftWidth: 10,
       minHeight: 120,
+      padding: '5px 5px 5px 0',
     },
     stance:{
       width: 10,
@@ -21,12 +22,34 @@ export default makeStyles(theme => ({
     image: {
       objectFit: 'cover',
       width: '100%',
-      height: '100%',
+      height: 250,
     },
     content: {
       paddingLeft: 10,
+    },
+    contentText: {
+      paddingTop: 5,
       whiteSpace: 'nowrap',
       overflow: 'hidden !important',
       textOverflow: 'ellipsis',
     },
+    contentAvatar: {
+      border: '2px solid',
+      zIndex: 0,
+    },
+    contentChip: {
+      paddingTop: 10,
+      paddingBottom: 10,
+    },
+    avatarSizeSmall: {
+      width: theme.spacing(3),
+      height: theme.spacing(3),
+    },
+    avatarSizeLarge: {
+      width: theme.spacing(7),
+      height: theme.spacing(7),
+    },
+    name:{
+      padding: 5,
+    }
 }));

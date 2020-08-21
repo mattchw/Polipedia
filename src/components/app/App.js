@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Switch } from 'react-router';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 import './App.css';
 
@@ -12,14 +12,18 @@ import Encourage from '../../route/Encourage'
 import About from '../../route/About'
 import NavBar from '../NavBar/NavBar'
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
+    primary: {
+      main: '#313d4c',
+    },
     secondary: {
         main: '#d8d8d8'
       }
     }
   },
 )
+theme = responsiveFontSizes(theme);
 
 function App() {
 
@@ -29,10 +33,10 @@ function App() {
         <Router>
           <NavBar>
             <Switch>
-              <Route exact component={Home} path="/" />
-              <Route exact component={Explore} path="/explore" />
-              <Route exact component={Encourage} path="/encourage" />
-              <Route exact component={About} path="/about" />
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/explore" component={Explore}/>
+              <Route exact path="/encourage" component={Encourage}/>
+              <Route exact path="/about" component={About}/>
             </Switch>
           </NavBar>
         </Router>

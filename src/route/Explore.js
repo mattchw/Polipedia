@@ -1,51 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { dataActions } from '../actions/fetchDataAction';
+import { getData, getCurrentPage, getKeyword, getFilters } from '../reducers/dataReducer';
 
 import Container from '@material-ui/core/Container';
 import Content from '../components/Content/Content.container'
 import SearchBar from '../components/SearchBar/SearchBar'
-import Grid from '@material-ui/core/Grid';
+import DrawerHeader from '../components/DrawerHeader/DrawerHeader'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    padding: '2px 4px',
-    display: 'flex',
-    alignItems: 'center',
-    maxWidth: 500,
-  },
-  input: {
-    marginLeft: theme.spacing(1),
-    flex: 1,
-  },
-  iconButton: {
-    padding: 10,
-  },
-  divider: {
-    height: 28,
-    margin: 4,
-  },
-}));
+const queryString = require('query-string');
 
-function Explore() {
-  const [data, setData] = useState([{name: "abc", description: "adsfdfadwfwfwvwvwvevwevvwrvrwwwevwfdafad"},{name: "abc", description: "adsfdfadfdafad"},{name: "abc", description: "adsfdfadfdafad"},{name: "abc", description: "adsfdfadfdafad"},{name: "abc", description: "adsfdfadfdafad"}]);
-  const classes = useStyles();
+function Explore({location}) {
+  const category = queryString.parse(location.search).category;
+  const data = useSelector(getData);
+  const page = useSelector(getCurrentPage);
+  const keyword = useSelector(getKeyword);
+  const filters = useSelector(getFilters);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       '/api/v1/person',
-  //     );
-  //     setData(result.data);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    dispatch(dataActions.clearKeywordAndFilters());
+    dispatch(dataActions.getAll(category));
+  }, [category, dispatch]);
 
   return (
-    <Container maxWidth='xl'>
-        <SearchBar/>
-        <Content data={data}/>
+    <Container
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <DrawerHeader/>
+        <SearchBar category={category} page={page} keyword={keyword} filters={filters}/>
+        {
+          data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content category={category} data={data} page={page} keyword={keyword} filters={filters}/>
+        }
     </Container> 
   );
 }

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { dataActions } from '../../actions/fetchDataAction';
+import { getFetchingStatus } from '../../reducers/dataReducer';
+
 import Select from 'react-select';
 
 import Paper from '@material-ui/core/Paper';
@@ -15,40 +19,108 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import style from './SearchBar.style'
 
+import utilStance from '../../utils/stance'
+import utilOccupation from '../../utils/occupation'
+import utilCategory from '../../utils/category'
+
 const useStyles = style;
 
-const options = [
-  { value: 1, label: 'Chocolate' },
-  { value: 2, label: 'Strawberry' },
-  { value: 3, label: 'Vanilla' },
-  { value: 4, label: '1dedewdewdewdew' },
-  { value: 5, label: '2dedewdewdwdwdewdwdewde' },
-  { value: 6, label: '3dewdewdewdwedew' },
-];
+let stances = [];
 
-const stances = [
-  { value: 'yellow', label: 'Yellow' },
-  { value: 'blue', label: 'Blue' },
-  { value: 'unknown', label: 'Unknown' },
-];
+let options = [];
 
-function SearchBar() {
+
+function initFilters(category){
+  stances = [];
+  options = [];
+  for(let i = 0; i<utilStance.length; i++){
+    let obj = {
+      value: utilStance[i].id, 
+      label: utilStance[i].name
+    }
+    stances.push(obj);
+  }
+  let tmp = [];
+  switch(category){
+    case("persons"):
+      tmp = utilOccupation;
+      break;
+    case("youtubes"):
+      tmp = utilCategory;
+      break;
+    default:
+      tmp = utilOccupation;
+
+  }
+  for(let j = 0; j<tmp.length; j++){
+    let obj = {
+      value: tmp[j].id, 
+      label: tmp[j].name
+    }
+    options.push(obj);
+  }
+}
+
+function SearchBar(props) {
   const classes = useStyles();
-  const [selectedOptions, setSelectedOptions] = useState(null);
-  const [selectedStances, setSelectedStances] = useState(null);
-  const [showOptions, setShowOptions] = useState(false);
+  const page = props.page;
+  const keyword = props.keyword;
+  const filters = props.filters;
+  const [showFilters, setShowFilters] = useState({
+    display: 'none',
+    opacity: 0,
+  });
 
-  const handleChangeOptions = selected => {
-    setSelectedOptions(selected);
+  const dispatch = useDispatch();
+
+  const handleChangeKeyword = event => {
+    dispatch(dataActions.updateKeywordAndFilters(event.target.value, filters));
   };
 
   const handleChangeStances = selected => {
-    setSelectedStances(selected);
+    filters.stances = selected;
+    dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
+    dispatch(dataActions.updatePage(1));
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, 1));
   };
 
-  const triggerOptions = () => {
-    setShowOptions(!showOptions);
+  const handleChangeOptions = selected => {
+    filters.options = selected;
+    dispatch(dataActions.updateKeywordAndFilters(keyword, filters));
+    dispatch(dataActions.updatePage(1));
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, 1));
+  };
+
+  const toggleFilters = () => {
+    if (showFilters.display === 'none') {
+      setShowFilters(prevState=>{
+        return {...prevState, display: 'flex'}
+      });
+      setTimeout(() =>
+        setShowFilters(prevState=>{
+          return {...prevState, opacity: 1}
+        }), 100
+      )
+    }
+    if (showFilters.display === 'flex') {
+      setShowFilters(prevState=>{
+        return {...prevState, opacity: 0}
+      });
+      setTimeout(() =>
+        setShowFilters(prevState=>{
+          return {...prevState, display: 'none'}
+        }), 300 
+      )
+    }
   }
+
+  const handleSearch = () => {
+    dispatch(dataActions.getWithOptions(props.category, keyword, filters, page));
+  };
+
+  useEffect(() => {
+    initFilters(props.category);
+  }, [props.category]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.searchBarContainer}>
@@ -57,31 +129,48 @@ function SearchBar() {
             <InputBase
             className={classes.input}
             placeholder="Search"
-            inputProps={{ 'aria-label': 'search google maps' }}
+            value={keyword}
+            onChange={handleChangeKeyword}
             />
             <Divider orientation="vertical" flexItem />
-            <IconButton type="submit" className={classes.iconButton} aria-label="search">
+            <IconButton
+              type="submit" 
+              className={classes.iconButton} 
+              aria-label="search" 
+              onClick={handleSearch}
+              disabled={(useSelector(getFetchingStatus))||(!keyword)}
+            >
                 <SearchIcon />
             </IconButton>
         </Paper>
       </Grid>
       {
-        showOptions && <Grid container item xs={10} direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionContainer}>
-            <Grid item xs={12} sm={4} className={classes.searchBarOption}>
-            <Select
-                isMulti
-                closeMenuOnSelect={false}
-                value={selectedStances}
-                onChange={handleChangeStances}
-                options={stances}
-                placeholder="Stance"
-              />
-          </Grid>
-          <Grid item xs={12} sm={8} className={classes.searchBarOption}>
+        <Grid container item xs={10} direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionContainer} 
+          style={{
+            transition: 'opacity 0.3s ease',
+            opacity: showFilters.opacity,
+            display: showFilters.display,
+          }}
+        >
+          <Grid item xs={12} md={4} className={classes.searchBarOption}>
             <Select
               isMulti
+              isDisabled={useSelector(getFetchingStatus)}
+              isSearchable={false}
               closeMenuOnSelect={false}
-              value={selectedOptions}
+              value={filters.stances}
+              onChange={handleChangeStances}
+              options={stances}
+              placeholder="立場"
+            />
+          </Grid>
+          <Grid item xs={12} md={8} className={classes.searchBarOption}>
+            <Select
+              isMulti
+              isDisabled={useSelector(getFetchingStatus)}
+              isSearchable={false}
+              closeMenuOnSelect={false}
+              value={filters.moreOptions}
               onChange={handleChangeOptions}
               options={options}
               placeholder="Options"
@@ -91,9 +180,9 @@ function SearchBar() {
       }
       
       <Grid container direction="row" justify="center" alignItems="flex-start" className={classes.searchBarOptionButton}>
-          <Button variant="contained" size="small" color="secondary" onClick={triggerOptions}>
+          <Button variant="contained" size="small" color="secondary" onClick={toggleFilters}>
             {
-              showOptions ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>
+              (showFilters.display==='flex') ? <ArrowDropUpIcon/> : <ArrowDropDownIcon/>
             }
           </Button>
       </Grid>
