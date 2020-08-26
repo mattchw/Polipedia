@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -9,10 +9,6 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 
 import styles from './Content.component.style'
 
-import utilStance from '../../utils/stance'
-import utilOccupation from '../../utils/occupation'
-import utilCategory from '../../utils/category'
-
 const useStyles = styles;
 
 function ContentItem(props) {
@@ -22,13 +18,13 @@ function ContentItem(props) {
   const [owner, setOwner] = useState([]);
   const [img, setImg] = useState('https://homepages.cae.wisc.edu/~ece533/images/arctichare.png');
 
-  const handleChips = (item) => {
+  const handleChips = useCallback((item) => {
     if (item.occupation) {
       let tmp = [];
-      for (let i = 0; i < utilOccupation.length; i++) {
+      for (let i = 0; i < props.content.searchBar.filters.occupation.length; i++) {
         for (let j = 0; j < item.occupation.length; j++) {
-          if (item.occupation[j].value === utilOccupation[i].id) {
-            tmp.push(utilOccupation[i].name);
+          if (item.occupation[j].value === props.content.searchBar.filters.occupation[i].id) {
+            tmp.push(props.content.searchBar.filters.occupation[i].name);
           }
         }
       }
@@ -36,22 +32,22 @@ function ContentItem(props) {
     }
     if (item.category) {
       let tmp = [];
-      for (let i = 0; i < utilCategory.length; i++) {
+      for (let i = 0; i < props.content.searchBar.filters.category.length; i++) {
         for (let j = 0; j < item.category.length; j++) {
-          if (item.category[j].value === utilCategory[i].id) {
-            tmp.push(utilCategory[i].name);
+          if (item.category[j].value === props.content.searchBar.filters.category[i].id) {
+            tmp.push(props.content.searchBar.filters.category[i].name);
           }
         }
       }
       setOption(tmp);
     }
-  }
+  }, [props])
 
   useEffect(() => {
     if (props.item.stance) {
-      for (let i = 0; i < utilStance.length; i++) {
-        if (props.item.stance === utilStance[i].id) {
-          setStance(utilStance[i].value);
+      for (let i = 0; i < props.content.searchBar.filters.stance.length; i++) {
+        if (props.item.stance === props.content.searchBar.filters.stance[i].id) {
+          setStance(props.content.searchBar.filters.stance[i].value);
         }
       }
     }
@@ -72,9 +68,9 @@ function ContentItem(props) {
             obj.id = props.item.owners[i].person.id;
             obj.name = props.item.owners[i].person.name;
             obj.img = props.item.owners[i].person.profile;
-            for (let j = 0; j < utilStance.length; j++) {
-              if (props.item.owners[i].person.stance === utilStance[j].id) {
-                obj.stance = utilStance[j].value;
+            for (let j = 0; j < props.content.searchBar.filters.stance.length; j++) {
+              if (props.item.owners[i].person.stance === props.content.searchBar.filters.stance[j].id) {
+                obj.stance = props.content.searchBar.filters.stance[j].value;
               }
             }
             tmp.push(obj);
@@ -88,7 +84,7 @@ function ContentItem(props) {
     if (props.item.profile) {
       setImg(props.item.profile);
     }
-  }, [props]);
+  }, [props, handleChips]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.card} style={{ borderLeftColor: stance }}>

@@ -26,12 +26,12 @@ function Content(props) {
       <Grid container direction="row" justify="center" alignItems="center">
         <Grid item container direction="row" xs={12}>
           <Typography variant="overline">
-            搜尋結果： {props.data.totalElements} (共{props.data.totalPages}頁)
+  {props.content.searchResult}： {props.data.totalElements} ({props.content.total}{props.data.totalPages}{props.content.page})
           </Typography>
         </Grid>
       </Grid>
       {props.data.content.length!==0 && props.data.content.map((item, index) => (
-        <ContentItem key={index} category={props.category} item={item}/>
+        <ContentItem key={index} category={props.category} item={item} content={props.content}/>
       ))}
       {props.data.content.length!==0 && <Grid container direction="row" justify="center" alignItems="center" style={{padding: '30px 0'}}>
         <Pagination

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { dataActions } from '../../actions/fetchDataAction';
@@ -19,47 +19,10 @@ import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 
 import style from './SearchBar.style'
 
-import utilStance from '../../utils/stance'
-import utilOccupation from '../../utils/occupation'
-import utilCategory from '../../utils/category'
-
 const useStyles = style;
 
 let stances = [];
-
 let options = [];
-
-
-function initFilters(category){
-  stances = [];
-  options = [];
-  for(let i = 0; i<utilStance.length; i++){
-    let obj = {
-      value: utilStance[i].id, 
-      label: utilStance[i].name
-    }
-    stances.push(obj);
-  }
-  let tmp = [];
-  switch(category){
-    case("persons"):
-      tmp = utilOccupation;
-      break;
-    case("youtubes"):
-      tmp = utilCategory;
-      break;
-    default:
-      tmp = utilOccupation;
-
-  }
-  for(let j = 0; j<tmp.length; j++){
-    let obj = {
-      value: tmp[j].id, 
-      label: tmp[j].name
-    }
-    options.push(obj);
-  }
-}
 
 function SearchBar(props) {
   const classes = useStyles();
@@ -72,6 +35,37 @@ function SearchBar(props) {
   });
 
   const dispatch = useDispatch();
+
+  const initFilters = useCallback((category)=> {
+    stances = [];
+    options = [];
+    for(let i = 0; i<props.content.searchBar.filters.stance.length; i++){
+      let obj = {
+        value: props.content.searchBar.filters.stance[i].id, 
+        label: props.content.searchBar.filters.stance[i].name
+      }
+      stances.push(obj);
+    }
+    let tmp = [];
+    switch(category){
+      case("persons"):
+        tmp = props.content.searchBar.filters.occupation;
+        break;
+      case("youtubes"):
+        tmp = props.content.searchBar.filters.category;
+        break;
+      default:
+        tmp = props.content.searchBar.filters.occupation;
+  
+    }
+    for(let j = 0; j<tmp.length; j++){
+      let obj = {
+        value: tmp[j].id, 
+        label: tmp[j].name
+      }
+      options.push(obj);
+    }
+  }, [props])
 
   const handleChangeKeyword = event => {
     dispatch(dataActions.updateKeywordAndFilters(event.target.value, filters));
@@ -120,7 +114,7 @@ function SearchBar(props) {
 
   useEffect(() => {
     initFilters(props.category);
-  }, [props.category]);
+  }, [props, initFilters]);
 
   return (
     <Grid container direction="row" justify="center" alignItems="center" className={classes.searchBarContainer}>
@@ -128,7 +122,7 @@ function SearchBar(props) {
         <Paper className={classes.root}>
             <InputBase
             className={classes.input}
-            placeholder="Search"
+            placeholder={props.content.searchBar.search}
             value={keyword}
             onChange={handleChangeKeyword}
             />
@@ -161,7 +155,7 @@ function SearchBar(props) {
               value={filters.stances}
               onChange={handleChangeStances}
               options={stances}
-              placeholder="立場"
+              placeholder={props.content.searchBar.stance}
             />
           </Grid>
           <Grid item xs={12} md={8} className={classes.searchBarOption}>
@@ -173,7 +167,7 @@ function SearchBar(props) {
               value={filters.moreOptions}
               onChange={handleChangeOptions}
               options={options}
-              placeholder="Options"
+              placeholder={props.content.searchBar.options}
             />
           </Grid>  
       </Grid>

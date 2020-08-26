@@ -13,6 +13,10 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import Slide from '@material-ui/core/Slide';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Collapse from '@material-ui/core/Collapse';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
 
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -24,7 +28,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import HomeIcon from '@material-ui/icons/Home';
 import ExploreIcon from '@material-ui/icons/Search';
-// import UmbrellaIcon from '@material-ui/icons/BeachAccess';
+import TranslateIcon from '@material-ui/icons/Translate';
 import InfoIcon from '@material-ui/icons/Info';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -33,6 +37,10 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 
 // style
 import styles from './NavBar.style'
+
+import { useDispatch } from 'react-redux';
+
+import { generalActions } from '../../actions/generalAction';
 
 const useStyles = styles;
 
@@ -51,9 +59,24 @@ function HideOnScroll(props) {
 function NavBar(props) {
   const classes = useStyles();
   const theme = useTheme();
+  const [lang, setLang] = React.useState("en");
   const [openMenu, setOpenMenu] = React.useState(false);
   const [openExplore, setOpenExplore] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const shift = useMediaQuery('(min-width:600px)');
+  const dispatch = useDispatch();
+
+  const handleLangClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleLangClose = (lang) => {
+    setAnchorEl(null);
+    if (lang != null) {
+      setLang(lang)
+      handleChangeLang(lang)
+    }
+  };
 
   const handleMenuOpen = () => {
     setOpenMenu(true);
@@ -66,7 +89,11 @@ function NavBar(props) {
   const handleExplore = () => {
     setOpenExplore(!openExplore);
   };
-  
+
+  const handleChangeLang = (lang) => {
+    dispatch(generalActions.changeLanguage(lang));
+  };
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -78,19 +105,40 @@ function NavBar(props) {
           })}
         >
           <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open menu"
-              onClick={handleMenuOpen}
-              edge="start"
-              className={clsx(classes.menuButton, openMenu && classes.hide)}
+            <Grid
+              justify="space-between"
+              container
             >
-              <MenuIcon />
-            </IconButton>
+              <Grid item>
+                <IconButton
+                  color="inherit"
+                  aria-label="open menu"
+                  onClick={handleMenuOpen}
+                  edge="start"
+                  className={clsx(classes.menuButton, openMenu && classes.hide)}
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+
+              <Grid item>
+                <Button color="inherit" onClick={handleLangClick}><TranslateIcon /></Button>
+              </Grid>
+            </Grid>
+            <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={() => handleLangClose(lang)}
+                >
+                  <MenuItem onClick={() => handleLangClose("en")}>English</MenuItem>
+                  <MenuItem onClick={() => handleLangClose("zht")}>繁體中文</MenuItem>
+                </Menu>
           </Toolbar>
         </AppBar>
       </HideOnScroll>
-      
+
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -110,50 +158,50 @@ function NavBar(props) {
           <List>
             <Link to="/" className={classes.link}>
               <ListItem button onClick={handleMenuClose}>
-                <ListItemIcon><HomeIcon/></ListItemIcon>
-                <ListItemText primary='主頁' />
+                <ListItemIcon><HomeIcon /></ListItemIcon>
+                <ListItemText primary={props.content.menu.home} />
               </ListItem>
             </Link>
 
             <ListItem button onClick={handleExplore}>
-              <ListItemIcon><ExploreIcon/></ListItemIcon>
-              <ListItemText primary='圖鑑' />
+              <ListItemIcon><ExploreIcon /></ListItemIcon>
+              <ListItemText primary={props.content.menu.guide.name} />
               {openExplore ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={openExplore} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <Link to="/explore?category=persons" className={classes.link}>
                   <ListItem button className={classes.nested} onClick={handleMenuClose}>
-                    <ListItemIcon><PersonIcon/></ListItemIcon>
-                    <ListItemText primary="人" />
+                    <ListItemIcon><PersonIcon /></ListItemIcon>
+                    <ListItemText primary={props.content.menu.guide.category.person} />
                   </ListItem>
                 </Link>
                 <Link to="/explore?category=youtubes" className={classes.link}>
                   <ListItem button className={classes.nested} onClick={handleMenuClose}>
-                    <ListItemIcon><YouTubeIcon/></ListItemIcon>
-                    <ListItemText primary="YouTube" />
+                    <ListItemIcon><YouTubeIcon /></ListItemIcon>
+                    <ListItemText primary={props.content.menu.guide.category.youtube} />
                   </ListItem>
                 </Link>
               </List>
-            </Collapse>           
-            
+            </Collapse>
+
           </List>
           <Divider />
           <List>
             <Link to="/about" className={classes.link}>
               <ListItem button onClick={handleMenuClose}>
-                <ListItemIcon><InfoIcon/></ListItemIcon>
-                <ListItemText primary='關於我們' />
+                <ListItemIcon><InfoIcon /></ListItemIcon>
+                <ListItemText primary={props.content.menu.about} />
               </ListItem>
             </Link>
           </List>
 
         </div>
-          
+
       </Drawer>
       <main
         className={clsx(classes.content, {
-          [classes.contentShift]: shift&&openMenu,
+          [classes.contentShift]: shift && openMenu,
         })}
       >
         {props.children}

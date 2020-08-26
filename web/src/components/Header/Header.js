@@ -10,11 +10,11 @@ import Container from '@material-ui/core/Container';
 
 import { Link } from 'react-router-dom';
 
-import { Link as ScrollLink} from 'react-scroll'
+import { Link as ScrollLink } from 'react-scroll'
 
 const useStyles = styles;
 
-function Header() {
+function Header(props) {
   const classes = useStyles();
 
   return (
@@ -22,27 +22,27 @@ function Header() {
       <Grid container direction="column" justify="center" alignItems="center" className={classes.containerItem}>
         <Grid item>
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            流水鑑
+            {props.content.title}
           </Typography>
         </Grid>
         <Grid item xs={8}>
           <Typography variant="h6" align="center" color="textSecondary" paragraph>
-            「黃藍是政見，黑白是良知」
+            {props.content.description1}
           </Typography>
           <Typography variant="h6" align="center" color="textSecondary" paragraph>
-            邊個撐政府、警察？邊個撐學生？一目了然。
+            {props.content.description2}
           </Typography>
         </Grid>
         <Grid container spacing={2} justify="center">
           <Grid item>
             <Link to="/explore?category=persons" className={classes.link}>
-            <Button variant="contained" color="primary" style={{margin: 'auto 5px'}}>
-              開始
-            </Button>
+              <Button variant="contained" color="primary" style={{ margin: 'auto 5px' }}>
+                {props.content.button1}
+              </Button>
             </Link>
             <ScrollLink activeClass="active" to="intro" spy={true} smooth={true} duration={500} >
-              <Button variant="contained" color="secondary" style={{margin: 'auto 5px'}}>
-                原則
+              <Button variant="contained" color="secondary" style={{ margin: 'auto 5px' }}>
+                {props.content.button2}
               </Button>
             </ScrollLink>
           </Grid>

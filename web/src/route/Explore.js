@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 const queryString = require('query-string');
 
-function Explore({location}) {
+function Explore({content, location}) {
   const category = queryString.parse(location.search).category;
   const data = useSelector(getData);
   const page = useSelector(getCurrentPage);
@@ -35,9 +35,9 @@ function Explore({location}) {
       }}
     >
       <DrawerHeader/>
-        <SearchBar category={category} page={page} keyword={keyword} filters={filters}/>
+        <SearchBar content={content} category={category} page={page} keyword={keyword} filters={filters}/>
         {
-          data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content category={category} data={data} page={page} keyword={keyword} filters={filters}/>
+          data.isFetching ? <CircularProgress size={50} style={{margin: 50}}/> : <Content content={content} category={category} data={data} page={page} keyword={keyword} filters={filters}/>
         }
     </Container> 
   );
