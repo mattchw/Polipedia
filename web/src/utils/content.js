@@ -35,7 +35,7 @@ export default {
           "name": "Denise Ho Wan See",
           "stance": 1,
           "description": "Hong Kong-based Cantopop singer and actress, as well as a pro-democracy and Hong Kong human rights activist.",
-          "profile": "https://upload.wikimedia.org/wikipedia/commons/e/e7/HOCC_visit_the_US_Capitol.jpg",
+          "profile": "https://ichef.bbci.co.uk/news/660/cpsprodpb/17958/production/_107800669_gettyimages-1154616320.jpg",
           "occupation": [{ value: 1 }, { value: 2 }]
         },
         example2: {
@@ -113,7 +113,7 @@ export default {
           "name": "何韻詩",
           "stance": 1,
           "description": "香港著名歌手、演員及社運人士，大愛同盟創始成員之一，音樂品牌Goomusic創始人。",
-          "profile": "https://upload.wikimedia.org/wikipedia/commons/e/e7/HOCC_visit_the_US_Capitol.jpg",
+          "profile": "https://ichef.bbci.co.uk/news/660/cpsprodpb/17958/production/_107800669_gettyimages-1154616320.jpg",
           "occupation": [{ value: 1 }, { value: 2 }]
         },
         example2: {
