@@ -16,7 +16,6 @@ import utilCategory from '../../utils/category'
 
 import Home from '../../route/Home'
 import Explore from '../../route/Explore'
-import Encourage from '../../route/Encourage'
 import About from '../../route/About'
 import NavBar from '../NavBar/NavBar'
 
@@ -64,7 +63,6 @@ function App() {
             <Switch>
               <Route exact path="/" component={() => <Home content={contentLang.home} filters={contentLang.explore}/>}/>
               <Route exact path="/explore" component={(props) => <Explore content={contentLang.explore} {...props}/>}/>
-              <Route exact path="/encourage" component={Encourage}/>
               <Route exact path="/about" component={About}/>
             </Switch>
           </NavBar>

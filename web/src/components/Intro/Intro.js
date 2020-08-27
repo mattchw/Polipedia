@@ -13,7 +13,7 @@ const useStyles = styles;
 function Intro(props) {
 	const classes = useStyles();
 	return (
-		<Element name="intro" className={classes.introContainer}>
+		<Element name="intro">
 			<Container maxWidth='xl'>
 				<Grid container direction="column" justify="center" alignItems="center" className={classes.containerItem}>
 					<Grid item>
