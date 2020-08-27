@@ -5,7 +5,7 @@ export default {
       header:{
         title: "BeWater Guide",
         description1: "\"Its beyond political but conscience.\"",
-        description2: "Find out the political stances of your favourite celebrities.",
+        description2: "Find out the political stances of your \"favourite\" celebrities.",
         button1: "Start",
         button2: "Know more"
       },
