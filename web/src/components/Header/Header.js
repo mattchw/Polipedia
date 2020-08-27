@@ -22,7 +22,9 @@ function Header(props) {
       <Grid container direction="column" justify="center" alignItems="center" className={classes.containerItem}>
         <Grid item>
           <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-            {props.content.title}
+          {props.content.title1}
+            <span style={{color:'#5780b3'}}>{props.content.title2}</span>
+            {props.content.title3}
           </Typography>
         </Grid>
         <Grid item xs={8}>

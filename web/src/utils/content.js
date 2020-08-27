@@ -2,14 +2,17 @@ export default {
   en: {
     home: {
       lang: "en",
-      header:{
+      header: {
         title: "BeWater Guide",
+        title1: "Be",
+        title2: "Water",
+        title3: " Guide",
         description1: "\"Its beyond political but conscience.\"",
         description2: "Find out the political stances of your \"favourite\" celebrities.",
         button1: "Start",
         button2: "Know more"
       },
-      intro:{
+      intro: {
         title: "How to distinguish between Yellow/Blue?",
         description1: "",
         description2: "",
@@ -21,6 +24,26 @@ export default {
         blue: {
           name: "Blue",
           definition: "Pro-Beijing/Pro-establishment"
+        }
+      },
+      example: {
+        title: "How to read the information?",
+        description1: "1. Vertical bar on the left: the political stance",
+        description2: "2. Photo inside the card: the latest photo",
+        description3: "3. Information inside the card: Name, description, occupations",
+        example1: {
+          "name": "Denise Ho Wan See",
+          "stance": 1,
+          "description": "Hong Kong-based Cantopop singer and actress, as well as a pro-democracy and Hong Kong human rights activist.",
+          "profile": "https://upload.wikimedia.org/wikipedia/commons/e/e7/HOCC_visit_the_US_Capitol.jpg",
+          "occupation": [{ value: 1 }, { value: 2 }]
+        },
+        example2: {
+          "name": "Jackie Chan",
+          "stance": 2,
+          "description": "Hong Kong martial artist, actor, stuntman, film director, action choreographer, screenwriter, producer, and singer.",
+          "profile": "https://www.newhighlandvision.com/assets/uploads/2019/08/20160316006108.jpg",
+          "occupation": [{ value: 1 }, { value: 2 }]
         }
       }
     },
@@ -57,14 +80,17 @@ export default {
   zht: {
     home: {
       lang: "zht",
-      header:{
+      header: {
         title: "流水鑑",
+        title1: "流",
+        title2: "水",
+        title3: " 鑑",
         description1: "「黃藍是政見，黑白是良知」",
-        description2: "邊個撐政府、警察？邊個撐學生？一目了然。",
+        description2: "一齊睇下邊個撐政府、警察？邊個撐學生？",
         button1: "開始",
         button2: "了解更多"
       },
-      intro:{
+      intro: {
         title: "點分黃藍？",
         description1: "",
         description2: "",
@@ -76,6 +102,26 @@ export default {
         blue: {
           name: "藍",
           definition: "表態支持政府修例、支持警察暴力打壓示威者"
+        }
+      },
+      example: {
+        title: "點睇資料？",
+        description1: "1. 左邊條粗線: 政治立場",
+        description2: "2. 照片: 個人近照",
+        description3: "3. 詳細資料: 名字, 描述, 職業",
+        example1: {
+          "name": "何韻詩",
+          "stance": 1,
+          "description": "香港著名歌手、演員及社運人士，大愛同盟創始成員之一，音樂品牌Goomusic創始人。",
+          "profile": "https://upload.wikimedia.org/wikipedia/commons/e/e7/HOCC_visit_the_US_Capitol.jpg",
+          "occupation": [{ value: 1 }, { value: 2 }]
+        },
+        example2: {
+          "name": "成龍",
+          "stance": 2,
+          "description": "原名陳港生，後改名房仕龍，前藝名元樓，香港武打演員、歌手、導演和電影監製。",
+          "profile": "https://www.newhighlandvision.com/assets/uploads/2019/08/20160316006108.jpg",
+          "occupation": [{ value: 1 }, { value: 2 }]
         }
       }
     },

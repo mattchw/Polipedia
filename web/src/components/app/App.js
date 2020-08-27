@@ -62,7 +62,7 @@ function App() {
         <Router>
           <NavBar content={contentLang.navbar}>
             <Switch>
-              <Route exact path="/" component={() => <Home content={contentLang.home} />}/>
+              <Route exact path="/" component={() => <Home content={contentLang.home} filters={contentLang.explore}/>}/>
               <Route exact path="/explore" component={(props) => <Explore content={contentLang.explore} {...props}/>}/>
               <Route exact path="/encourage" component={Encourage}/>
               <Route exact path="/about" component={About}/>
