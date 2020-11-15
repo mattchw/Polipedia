@@ -85,8 +85,8 @@ export default {
         title1: "流",
         title2: "水",
         title3: " 鑑",
-        description1: "「黃藍是政見，黑白是良知」",
-        description2: "一齊睇下邊個撐政府、警察？邊個撐學生？",
+        description1: "",
+        description2: "",
         button1: "開始",
         button2: "了解更多"
       },
@@ -97,11 +97,11 @@ export default {
         description3: "",
         yellow: {
           name: "黃",
-          definition: "在不公義的時代勇於發聲，表態支持反送中示威者"
+          definition: "表態支持反送中示威者"
         },
         blue: {
           name: "藍",
-          definition: "表態支持政府修例、支持警察暴力打壓示威者"
+          definition: "表態支持政府修例"
         }
       },
       example: {

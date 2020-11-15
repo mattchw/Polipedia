@@ -1,6 +1,5 @@
 import React from 'react';
-import { Switch } from 'react-router';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { useSelector } from 'react-redux';
 import { getLang } from '../../reducers/generalReducer';
