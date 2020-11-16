@@ -31,11 +31,11 @@ function Example(props) {
 						{props.content.description3}
 					</Typography>
         </Grid>
-        <Grid item>
+        <Grid item style={{width: '100%'}}>
           <ContentItem category="persons" item={props.content.example1} content={props.filters} />
         </Grid>
 
-        <Grid item>
+        <Grid item style={{width: '100%'}}>
           <ContentItem category="persons" item={props.content.example2} content={props.filters} />
         </Grid>
       </Grid>
