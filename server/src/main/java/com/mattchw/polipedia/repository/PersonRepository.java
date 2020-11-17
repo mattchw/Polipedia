@@ -1,4 +1,4 @@
-package com.mattchw.bewater.repository;
+package com.mattchw.polipedia.repository;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.mattchw.bewater.model.Person;
+import com.mattchw.polipedia.model.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long>{
 	

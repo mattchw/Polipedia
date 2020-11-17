@@ -1,8 +1,8 @@
-package com.mattchw.bewater.repository;
+package com.mattchw.polipedia.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.mattchw.bewater.model.Stance;
+import com.mattchw.polipedia.model.Stance;
 
 public interface StanceRepository extends CrudRepository<Stance, Long>{
 

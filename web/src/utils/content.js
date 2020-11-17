@@ -3,27 +3,35 @@ export default {
     home: {
       lang: "en",
       header: {
-        title: "BeWater Guide",
-        title1: "Be",
-        title2: "Water",
-        title3: " Guide",
+        title: "Polipedia",
+        title1: "Po",
+        title2: "li",
+        title3: "pedia",
         description1: "\"Its beyond political but conscience.\"",
         description2: "Find out the political stances of your \"favourite\" celebrities.",
         button1: "Start",
         button2: "Know more"
       },
       intro: {
-        title: "How to distinguish between Yellow/Blue?",
+        title: "How to distinguish between different stances?",
         description1: "",
         description2: "",
         description3: "",
         yellow: {
-          name: "Yellow",
+          name: "Yellow (HK)",
           definition: "Pro-democracy"
         },
         blue: {
-          name: "Blue",
+          name: "Blue (HK)",
           definition: "Pro-Beijing/Pro-establishment"
+        },
+        blue2: {
+          name: "Blue (US)",
+          definition: "Democrat"
+        },
+        red: {
+          name: "Red (US)",
+          definition: "Republican"
         }
       },
       example: {
@@ -81,27 +89,35 @@ export default {
     home: {
       lang: "zht",
       header: {
-        title: "流水鑑",
-        title1: "流",
-        title2: "水",
-        title3: " 鑑",
+        title: "政經百科",
+        title1: "政",
+        title2: "經",
+        title3: "百科",
         description1: "",
         description2: "",
         button1: "開始",
         button2: "了解更多"
       },
       intro: {
-        title: "點分黃藍？",
+        title: "點分政見？",
         description1: "",
         description2: "",
         description3: "",
         yellow: {
-          name: "黃",
+          name: "黃 (HK)",
           definition: "表態支持反送中示威者"
         },
         blue: {
-          name: "藍",
+          name: "藍 (HK)",
           definition: "表態支持政府修例"
+        },
+        blue2: {
+          name: "藍 (US)",
+          definition: "民主黨"
+        },
+        red: {
+          name: "紅 (US)",
+          definition: "共和黨"
         }
       },
       example: {

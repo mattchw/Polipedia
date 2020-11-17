@@ -1,4 +1,4 @@
-package com.mattchw.bewater.controller;
+package com.mattchw.polipedia.controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mattchw.bewater.model.Person;
-import com.mattchw.bewater.repository.PersonRepository;
+import com.mattchw.polipedia.model.Person;
+import com.mattchw.polipedia.repository.PersonRepository;
 
 @CrossOrigin
 @RestController

@@ -1,4 +1,4 @@
-package com.mattchw.bewater.controller;
+package com.mattchw.polipedia.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mattchw.bewater.model.Stance;
-import com.mattchw.bewater.repository.StanceRepository;
+import com.mattchw.polipedia.model.Stance;
+import com.mattchw.polipedia.repository.StanceRepository;
 
 @RestController
 @RequestMapping("/api/v1")

@@ -1,4 +1,4 @@
-package com.mattchw.bewater.config;
+package com.mattchw.polipedia.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

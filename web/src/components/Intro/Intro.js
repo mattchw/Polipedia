@@ -49,6 +49,22 @@ function Intro(props) {
 							{props.content.blue.definition}
 							</Typography>
 						</Grid>
+						<Grid item xs={12} sm={5} className={classes.card} style={{borderLeftColor: '#f44336'}}>
+							<Typography variant="h5" color="textPrimary" gutterBottom>
+							{props.content.red.name}
+							</Typography>
+							<Typography variant="body1" gutterBottom>
+							{props.content.red.definition}
+							</Typography>
+						</Grid>
+						<Grid item xs={12} sm={5} className={classes.card} style={{borderLeftColor: '#0f43a2'}}>
+							<Typography variant="h5" color="textPrimary" gutterBottom>
+							{props.content.blue2.name}
+							</Typography>
+							<Typography variant="body1" gutterBottom>
+							{props.content.blue2.definition}
+							</Typography>
+						</Grid>
 					</Grid>
 				</Grid>
 			</Container>

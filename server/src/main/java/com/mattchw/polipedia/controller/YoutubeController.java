@@ -1,4 +1,4 @@
-package com.mattchw.bewater.controller;
+package com.mattchw.polipedia.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mattchw.bewater.model.Youtube;
-import com.mattchw.bewater.repository.YoutubeRepository;
+import com.mattchw.polipedia.model.Youtube;
+import com.mattchw.polipedia.repository.YoutubeRepository;
 
 @CrossOrigin
 @RestController

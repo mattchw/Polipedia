@@ -1,4 +1,4 @@
-package com.mattchw.bewater.model;
+package com.mattchw.polipedia.model;
 
 import java.util.List;
 

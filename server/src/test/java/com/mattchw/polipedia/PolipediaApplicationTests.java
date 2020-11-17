@@ -1,4 +1,4 @@
-package com.mattchw.bewater;
+package com.mattchw.polipedia;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.mattchw.bewater.model;
+package com.mattchw.polipedia.model;
 
 import java.sql.Date;
 import java.util.List;

@@ -33,7 +33,7 @@ function Footer(props) {
                 <img src={icon} alt="icon" style={{width: 50, height: 50}}/>
               </Grid>
               <Grid item xs={12} sm={9}>
-                <Typography variant="body1">BeWater</Typography>
+                <Typography variant="body1">Polipedia</Typography>
               </Grid>
             </Grid>
             

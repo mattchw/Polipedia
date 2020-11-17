@@ -1,8 +1,8 @@
-package com.mattchw.bewater.repository;
+package com.mattchw.polipedia.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.mattchw.bewater.model.Category;
+import com.mattchw.polipedia.model.Category;
 
 public interface CategoryRepository extends CrudRepository<Category, Long>{
 

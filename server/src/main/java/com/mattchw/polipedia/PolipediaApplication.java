@@ -1,4 +1,4 @@
-package com.mattchw.bewater;
+package com.mattchw.polipedia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
